@@ -19,7 +19,7 @@ Install python packages one by one by pip:
 
 ```
 cd lncnet
-pip install ./bin/python.package.requirement.txt
+pip install $INSTALL_DIR/python.package.requirement.txt
 ```
 
 You can also can run it in virtual environment.
@@ -31,14 +31,14 @@ pip install virtualenv
 cd my_project_folder
 virtualenv venv
 source venv/bin/activate
-pip install ./bin/python.package.requirement.txt
+pip install $INSTALL_DIR/python.package.requirement.txt
 ```
 
 ## Build database
 
 ### Build reference database without denovo lncRNA assembly
 ```
-cd ./lncnet
+cd $INSTALL_DIR
 mkdir data
 cd data
 perl ../BuildDb/build_db.pl mm9 ./ > mm9.log
@@ -60,11 +60,11 @@ Run demo to check whether the package work well.
 ```
 cd data
 perl ../BuildDb/BuildDb.pl mm9 ./
-perl ../BuildDb/BuildDb.pl hg19 ./
 ```
 
 ### Prepare test data for demo
 ```
+cd $INSTALL_DIR
 cd demo
 cd demo/test_data
 # prepare test dataset
@@ -83,14 +83,16 @@ vim config.txt
 ### Run testing
 
 ```
-perl ../Run_lncnet.pl config.txt
+perl ../run_lncnet.pl config.txt
+# then make the file
+make
 ```
 
-## Run LncFunNet analysis in one step
+## Run lncnet analysis in one step
 
 ### Prepare config.txt
 
-To find the format for config.txt file, please refer to "../bin/config.txt"
+To find the format for config.txt file, please refer to "$INSTALL_DIR/config.txt"
 
 For example:
 
@@ -105,7 +107,7 @@ SPE     mouse
 VERSION mm9
 
 # dbname for this analysis
-DB      ./data/mm9
+DB      $DBDIR/mm9
 
 # time serise transcriptome profiles(multiple datasets, place the major at first, at least 3 datasets)
 EXPR    ./data/expr.lst
@@ -129,9 +131,9 @@ MIRLIST ./data/MirRNA_expr_refseq.lst
 
 ### Perform the analysis
 
-Generate Makefile for lncFunNet analysis, run the analysis.
+Generate Makefile for lncnet analysis, run the analysis.
 ```
-perl ../bin/Run_lncFNTK.pl config.txt > lncFNTK.log
+perl ../run_lncnet.pl config.txt > lncnet.log
 make > mk.log 2>mk.err
 # this process will run a half day, please be patient.
 ```
