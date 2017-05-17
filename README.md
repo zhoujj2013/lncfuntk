@@ -19,7 +19,7 @@ Install python packages one by one by pip:
 
 ```
 cd lncnet
-pip install $INSTALL_DIR/python.package.requirement.txt
+python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt --user 
 ```
 
 You can also can run it in virtual environment.
@@ -31,7 +31,7 @@ pip install virtualenv
 cd my_project_folder
 virtualenv venv
 source venv/bin/activate
-pip install $INSTALL_DIR/python.package.requirement.txt
+python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt
 ```
 
 ## Build database
