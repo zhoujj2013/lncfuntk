@@ -54,16 +54,16 @@ perl ../BuildDb/build_db.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
 
 ## Run testing
 
-Run demo to check the package work well.
+Run demo to check whether the package work well.
 
-Create reference database.
+### Create reference database
 ```
 cd data
 perl ../BuildDb/BuildDb.pl mm9 ./
 perl ../BuildDb/BuildDb.pl hg19 ./
 ```
 
-Prepare test data for demo.
+### Prepare test data for demo
 ```
 cd demo
 cd demo/test_data
@@ -72,7 +72,16 @@ sh prepare.sh
 cd ..
 ```
 
-Write the configure file, you should replace $DBDIR with the directory you create reference database.
+### Write the configure file
+
+You should replace $DBDIR with the directory you create reference database in config.txt.
+```
+vim config.txt
+# replace $DBDIR with the directory you create reference database
+```
+
+### Run testing
+
 ```
 perl ../Run_lncnet.pl config.txt
 ```
@@ -178,4 +187,3 @@ miRNAn_symbol<tab>refseq_idn
 ```
 06FunctionalAnnotation/lncFunNet.GO.enrich.result.txt
 ```
-
