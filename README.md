@@ -5,7 +5,7 @@ Functional characterization of lncRNA by integrative network analysis.
 
 ### Get the code
 ```
-git clone git@github.com:zhoujj2013/lncFNTK.git
+git clone git@github.com:zhoujj2013/lncnet.git
 ```
 ### Install require python packages
 
@@ -18,22 +18,30 @@ python get-pip.py
 Install python packages one by one by pip:
 
 ```
-cd lncFNTK
+cd lncnet
 pip install ./bin/python.package.requirement.txt
 ```
 
-### Run testing
+You can also can run it in virtual environment.
 
-Run test.sh to check the package work well.(I'm still working on this.)
+```
+# install virtualenv
+pip install virtualenv
+
+cd my_project_folder
+virtualenv venv
+source venv/bin/activate
+pip install ./bin/python.package.requirement.txt
+```
 
 ## Build database
 
 ### Build reference database without denovo lncRNA assembly
 ```
-cd ./lncFNTK
+cd ./lncnet
 mkdir data
 cd data
-perl ../bin/BuildDb/build_db.pl mm9 ./ > mm9.log
+perl ../BuildDb/build_db.pl mm9 ./ > mm9.log
 # this program will download the reference data from public databases.
 ```
 ### Build reference database with denovo lncRNA assembly
@@ -41,7 +49,32 @@ perl ../bin/BuildDb/build_db.pl mm9 ./ > mm9.log
 cd ./lncFNTK
 mkdir data
 cd data
-perl ../bin/BuildDb/build_db.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
+perl ../BuildDb/build_db.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
+```
+
+## Run testing
+
+Run demo to check the package work well.
+
+Create reference database.
+```
+cd data
+perl ../BuildDb/BuildDb.pl mm9 ./
+perl ../BuildDb/BuildDb.pl hg19 ./
+```
+
+Prepare test data for demo.
+```
+cd demo
+cd demo/test_data
+# prepare test dataset
+sh prepare.sh
+cd ..
+```
+
+Write the configure file, you should replace $DBDIR with the directory you create reference database.
+```
+perl ../Run_lncnet.pl config.txt
 ```
 
 ## Run LncFunNet analysis in one step
