@@ -3,11 +3,14 @@ Functional characterization of lncRNA by integrative network analysis.
 
 ## Installation
 
-### Get the code
+### Get lncnet
 ```
 git clone git@github.com:zhoujj2013/lncnet.git
 ```
+
 ### Install require python packages
+
+lncnet written by [PERL](https://www.perl.org/). It require python 2.7.X or above and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed by pip online.
 
 If you don't have pip, please download [get-pip.py](https://bootstrap.pypa.io/get-pip.py), then type:
 
@@ -15,14 +18,14 @@ If you don't have pip, please download [get-pip.py](https://bootstrap.pypa.io/ge
 python get-pip.py
 ```
 
-Install python packages one by one by pip:
+Install python packages one by one using pip module:
 
 ```
 cd lncnet
 python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt --user 
 ```
 
-You can also can run it in virtual environment.
+You can also can run it in virtual environment, if you don't have superuser privilege.
 
 ```
 # install virtualenv
@@ -34,35 +37,50 @@ source venv/bin/activate
 python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt
 ```
 
+
 ## Build database
 
+We need to prepare dataset for each genome, lncnet analysis rely on these datasets. Through BuildDb.pl, we can download dataset from UCSC, NCBI, EBI, mirBase and prepare these dataset for lncnet analysis automatically.
+
 ### Build reference database without denovo lncRNA assembly
+
+At present, we support preparing dataset for mouse(mm9) and human(hg19).
+
 ```
 cd $INSTALL_DIR
 mkdir data
 cd data
-perl ../BuildDb/build_db.pl mm9 ./ > mm9.log
+perl ../BuildDb/BuildDb.pl mm9 ./ > mm9.log
 # this program will download the reference data from public databases.
 ```
+
 ### Build reference database with denovo lncRNA assembly
+
+At present, we support preparing dataset for mouse(mm9) and human(hg19).
+
 ```
 cd ./lncFNTK
 mkdir data
 cd data
-perl ../BuildDb/build_db.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
+perl ../BuildDb/BuildDb.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
 ```
 
 ## Run testing
 
 Run demo to check whether the package work well.
 
-### Create reference database
+### Create database
+
+If you haven't built database for mouse(mm9), please run:
+
 ```
 cd data
 perl ../BuildDb/BuildDb.pl mm9 ./
+# around 20 mins
 ```
 
 ### Prepare test data for demo
+
 ```
 cd $INSTALL_DIR
 cd demo
@@ -70,6 +88,7 @@ cd demo/test_data
 # prepare test dataset
 sh prepare.sh
 cd ..
+# around 3 seconds
 ```
 
 ### Write the configure file
@@ -86,56 +105,7 @@ vim config.txt
 perl ../run_lncnet.pl config.txt
 # then make the file
 make
-```
-
-## Run lncnet analysis in one step
-
-### Prepare config.txt
-
-To find the format for config.txt file, please refer to "$INSTALL_DIR/config.txt"
-
-For example:
-
-```
-OUTDIR  ./
-PREFIX  mESCs
-
-# human/mouse
-SPE     mouse
-
-# genome version
-VERSION mm9
-
-# dbname for this analysis
-DB      $DBDIR/mm9
-
-# time serise transcriptome profiles(multiple datasets, place the major at first, at least 3 datasets)
-EXPR    ./data/expr.lst
-
-# the expression profile column corresponsing to the cell stage that you want
-# to prediction long nocoding RNA
-EXPRCUTOFF      0.5
-PCCCUTOFF       0.95
-
-# TF binding peaks from TF chipseq (multiple datasets, at least the key tfs)
-CHIP    ./data/tf.chipseq.lst
-PROMTER 10000,5000
-
-# Ago2 binding site from CLIP-seq (1 dataset)
-CLIP    ./data/Ago2.binding.bed
-EXTEND  100
-
-# express miRNA list
-MIRLIST ./data/MirRNA_expr_refseq.lst
-```
-
-### Perform the analysis
-
-Generate Makefile for lncnet analysis, run the analysis.
-```
-perl ../run_lncnet.pl config.txt > lncnet.log
-make > mk.log 2>mk.err
-# this process will run a half day, please be patient.
+# around 15 mins.
 ```
 
 ## Input files
