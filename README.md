@@ -110,6 +110,8 @@ make
 
 ## Input files
 
+We need to place the input files into configure file. We need to provide expression profile (expr.lst), TFs binding profiles(tf.chipseq.lst), a list of express miRNA (MirRNA_expr_refseq.lst) and potential miRNA binding profile (miRNA.binding.potential.bed). The format for these files should be prepared as follow:
+
 ### expr.lst
 
 Contain expression profile for different stages.
@@ -153,6 +155,16 @@ miRNA1_symbol<tab>refseq_id1
 miRNA2_symbol<tab>refseq_id2
 ...
 miRNAn_symbol<tab>refseq_idn
+```
+### miRNA.binding.potential.bed
+
+A list of potential miRNA binding site in bed format.(Note: the fourth column should be unique.)
+
+```
+# chrom<tab>start<tab>end<tab>id
+chr1  234 289 mESCs_001
+chr1  2834 2890 mESCs_002
+...
 ```
 
 ## Output
