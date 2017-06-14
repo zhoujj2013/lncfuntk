@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+		<style>
+			.node {
+			  stroke: #fff;
+			  stroke-width: 1.5px;
+			}
+
+			.link {
+			  stroke: #999;
+			  stroke-opacity: .6;
+			}
+
+			.nodetext {
+					font-size: 12px ;
+					font-family: SimSun;
+					fill:#000000;
+			}
+
+			.linetext {
+					font-size: 12px ;
+					font-family: SimSun;
+					fill:#0000FF;
+					fill-opacity:0.0;
+			}
+
+		</style>
+    </head>
+
+    <body>
+	<h1></h1>
+	<hr/>
+	<h2>Parameters</h2>
+	<hr/>
+	<ul>
+		<li id='outdir' style="font-weight: bold;"></li>
+		<li id='prefix' style="font-weight: bold;"></li>
+		<li id='spe' style="font-weight: bold;"></li>
+		<li id='version' style="font-weight: bold;"></li>
+		<li id='refdb' style="font-weight: bold;"></li>
+		<li id='expr'></li>
+		<li id='chip'></li>
+		<li id='clip'></li>
+		<li id='mirna' style="font-weight: bold;"></li>
+	</ul>
+	<h2>Result</h2>
+	<hr/>
+	<h3>Predicted functional lncRNAs</h3>
+	<hr/>
+	<div>
+	<table id="lncrna" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>lncrna_id</th>
+                <th>FIS</th>
+                <th>GO_id</th>
+                <th>GO_desc</th>
+                <th>p-value</th>
+                <th>Adjusted-pvalue</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>lncrna_id</th>
+                <th>FIS</th>
+                <th>GO_id</th>
+                <th>GO_desc</th>
+                <th>p-value</th>
+                <th>Adjusted-pvalue</th>
+            </tr>
+        </tfoot>
+    </table>
+	<p>Download all functional lncRNAs: <a href="./FunctionalLncRNA.txt">here</a></p>
+	</div>
+	
+	<h3>GO enrichment analysis for functional lncRNAs</h3>
+	<hr/>
+	<div id="goenrich" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+	
+	<h3>Subnetwork for top 5 functional lncRNAs</h3>
+	<hr/>
+	<div id="subnw"></div>
+	<img src="./nodeLegend.png" alt="Node legend" style="width:109px;height:84px;">
+	<p>Download all interactions: <a href="./GeneRegulatoryNetwork.interaction.txt">here<a>.</p>
+	<hr/>
+	
+	<footer>
+	  <p>Created by: LncFunTK</p>
+	  <p>Contact information: <a href="mailto:zhoujiajian@link.cuhk.edu.hk">zhoujiajian@link.cuhk.edu.hk</a>.</p>
+	</footer>
+	
+    </body>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	
+    <script>
+	// for parameters, http://jquery.cuishifeng.cn/jQuery.getJSON.html
+	$.getJSON("./input.json", function(jdata){
+		$("h1").html("LncFunTK analysis result for " + jdata.PREFIX);
+		$("#outdir").html("Output directory: " + jdata.OUTDIR);
+		$("#prefix").html("Output prefix: " + jdata.PREFIX);
+		$("#spe").html("Species: " + jdata.SPE);
+		$("#version").html("Genome version: " + jdata.VERSION);
+		$("#refdb").html("Reference database: " + jdata.DB);
+		$("#expr").html("<p style=\"font-weight: bold;\">Expression profile settings: </p><p>Expression profile: " + jdata.EXPR + "</p><p>RPKM cutoff: " + jdata.EXPRCUTOFF + "</p><p>Pearson correlation cutoff: " + jdata.PCCCUTOFF + "</p>");
+		$("#chip").html("<p style=\"font-weight: bold;\">TFs binding profile settings: </p><p>TFs binding profile: " + jdata.CHIP + "</p><p>Promoter region relative to TSS(+/-): " + jdata.PROMTER + "</p>");
+		$("#clip").html("<p style=\"font-weight: bold;\">Ago2 protein binding profile settings: </p><p>Ago2 binding profile: " + jdata.CLIP	+ "</p><p>Extend length for binding region(+/-): " + jdata.EXTEND + "</p>");
+		$("#mirna").html("MicroRNA list: " + jdata.MIRLIST);
+	});
+
+	// for the table, https://www.datatables.net/examples/data_sources/ajax.html
+	$(document).ready(function() {
+		$('#lncrna').DataTable( {
+			"ajax": './lncrna.json'
+		} );
+	} );
+	
+	// for GO barchart, http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/bar-basic/
+	$.getJSON("./gotop10.json", function(gotop10){
+		Highcharts.chart('goenrich', {
+			chart: {
+				type: 'bar'
+			},
+			title: {
+				text: 'GO term distribution for functional lncRNAs'
+			},
+			xAxis: {
+				categories: gotop10.categories,
+				title: {
+					text: null
+				}
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Percentage(%)',
+					align: 'high'
+				},
+				labels: {
+					overflow: 'justify'
+				}
+			},
+			tooltip: {
+				valueSuffix: ''
+			},
+			plotOptions: {
+				bar: {
+					dataLabels: {
+						enabled: true
+					}
+				}
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'top',
+				x: -40,
+				y: 80,
+				floating: true,
+				borderWidth: 1,
+				backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+				shadow: true
+			},
+			credits: {
+				enabled: false
+			},
+			series: [{
+				name: gotop10.name,
+				data: gotop10.data
+			}]
+		});
+	});
+    </script>
+	<script>
+	// for subnetwork, 
+	var width = 1024,
+		height = 800;
+
+	//var color = d3.scale.category20();
+	var color = ["blue","rgb(244,177,131)","rgb(146,208,80)","rgb(255,102,255)"];
+	
+	var force = d3.layout.force()
+		.charge(-600)
+		.linkDistance(300)
+		.size([width, height]);
+
+	var svg = d3.select("#subnw").append("svg")
+		.attr("width", width)
+		.attr("height", height);
+
+	d3.json("./sn.json", function(error, graph) {
+	  if (error) throw error;
+
+	  force
+		  .nodes(graph.nodes)
+		  .links(graph.links)
+		  .start();
+
+	  var link = svg.selectAll(".link")
+		  .data(graph.links)
+		  .enter().append("line")
+		  .attr("class", "link")
+		  //.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+		  .style("stroke-width", function(d) { return d.value; });
+		  
+	  var node = svg.selectAll(".node")
+		  .data(graph.nodes)
+		  .enter().append("circle")
+		  .attr("class", "node")
+		  //.attr("r", 10)
+		  .attr("r", function(d) {return d.size; })
+		  .style("fill", function(d) { return color[d.group]; })
+		  .call(force.drag);
+
+	  //node.append("title")
+	  //    .text(function(d) { return d.name; });
+		  
+	  var text_dx = 0;
+	  var text_dy = 0;
+				
+	  var nodes_text = svg.selectAll(".nodetext")
+									.data(graph.nodes)
+									.enter()
+									.append("text")
+									.attr("class","nodetext")
+									.attr("dx",text_dx)
+									.attr("dy",text_dy)
+									.text(function(d){
+										return d.name;
+									});
+									
+	  force.on("tick", function() {
+		link.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+
+		node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) { return d.y; });
+			
+		nodes_text.attr("x", function(d){ return d.x })
+			.attr("y", function(d){ return d.y });
+	  });
+	});
+	</script>
+</html>

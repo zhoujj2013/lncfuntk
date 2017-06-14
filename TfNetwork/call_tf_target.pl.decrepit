@@ -1,0 +1,150 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Getopt::Long;
+use FindBin qw($Bin $Script);
+use File::Basename qw(basename dirname);
+use Data::Dumper;
+
+&usage if @ARGV<1;
+
+#open IN,"" ||die "Can't open the file:$\n";
+#open OUT,"" ||die "Can't open the file:$\n";
+
+sub usage {
+        my $usage = << "USAGE";
+
+        Description of this script.
+        Author: zhoujj2013\@gmail.com
+        Usage: $0 <mac_output> <ensembl_db_dir> <q_value> <TF_name> <output_prefix>
+        Example:perl $0 mac_output_peak  ensembl_db_dir mac_q_value Yy1 GMYy1
+
+USAGE
+print "$usage";
+exit(1);
+};
+
+
+my ($mac_output_f, $ensemble_db_dir, $q, $tf, $prefix) = @ARGV;
+
+# peak to genes
+my %peak;
+read_macs_output($mac_output_f,$q,\%peak);
+
+# print Dumper(\%peak);
+
+my $pro = read_ensembl_tab("$ensemble_db_dir/ensembl.promoter",3,1);
+my $tgr = index_tow_col("$ensemble_db_dir/ensembl.GeneTranRelation",2,4);
+
+# link to promoter region
+my @target;
+foreach my $chr (keys %peak){
+	foreach my $k (keys %{$peak{$chr}}){
+		#0 1 2
+		my $chr_sim = $chr;
+		foreach my $kk (keys %{$pro->{$chr_sim}}){
+			# 2 3 4
+			my $r = overlap_no_strand($chr,$peak{$chr}{$k}[1],$peak{$chr}{$k}[2],$chr,$pro->{$chr_sim}{$kk}[3],$pro->{$chr_sim}{$kk}[4]);
+			if(scalar(@$r) > 2){
+				push @target,$pro->{$chr_sim}{$kk}[1];
+			}
+			#print "$chr,$peak{$chr}{$k}[1],$peak{$chr}{$k}[2],$chr,$pro->{$chr_sim}{$kk}[3],$pro->{$chr_sim}{$kk}[4]\n" if(scalar(@$r) > 2);
+			#print join "\t",@{$r},"\n" if(scalar(@$r) > 2);
+		}
+	}
+}
+
+my $clean_target = remove_duplicate(\@target);
+
+my %target;
+foreach(@{$clean_target}){
+	push @{$target{$_}},"TF_binding";
+}
+
+#print Dumper(\@target);
+
+# check miRNA locate in transcript region
+my @miRNA;
+open IN,"$ensemble_db_dir/ensembl.GeneTranRelation" || die $!;
+while(<IN>){
+	chomp;
+	next if(/^#/);
+	my @t = split /\t/;
+	push @miRNA,$t[0] if($t[2] eq "miRNA")
+}
+close IN;
+
+my $tran = read_tab("$ensemble_db_dir/ensembl.transcript",1);
+my @miR_track;
+foreach my $m (@miRNA){
+	push @miR_track,$tran->{$m};
+}
+
+$tran = read_ensembl_tab("$ensemble_db_dir/ensembl.transcript",3,1);
+
+my %Mir;
+foreach my $mir (@miR_track){
+	my $chr = $mir->[2];
+	foreach my $k (keys %{$tran->{$chr}}){
+		my $id = $tran->{$chr}{$k};
+		next if($k eq $mir->[0]);
+
+		my $r = overlap($chr,$mir->[3],$mir->[4],$mir->[5],$chr,$id->[3],$id->[4],$id->[5]);
+		if(scalar(@$r) == 4){
+			my $len = $mir->[4] - $mir->[3] + 1;
+			if(exists $target{$id->[1]}){
+				push @{$Mir{$mir->[1]}},$id->[0];
+			}
+		}
+	}
+}
+#print Dumper(\%target);
+
+open OUT,">","./$prefix.miRNA_transcript_pair.txt" || die $!;
+foreach my $m (keys %Mir){
+	push @{$target{$m}},"within_transcript";
+
+	my $new_tran = remove_duplicate(\@{$Mir{$m}});
+	print OUT "$m\t";
+	print OUT join ",",@{$new_tran};
+	print OUT "\n";
+}
+close OUT;
+
+#########################################
+
+open OUT,">","./$prefix.target.txt" || die $!;
+open OUT2,">","./$prefix.target.ensembl.txt" || die $!;
+
+my $tf_ensembl;
+foreach my $k (keys %{$tgr}){
+	$tf_ensembl = $k if($tgr->{$k} eq $tf);
+}
+
+foreach my $n (keys %target){
+	print OUT2 "$tf_ensembl\t$n\tpd\tNA\t";
+	print OUT2 join ";",@{$target{$n}};
+	print OUT2 "\n";
+
+	print OUT "$tf\t$tgr->{$n}\tpd\tNA\t";
+	print OUT join ";",@{$target{$n}};
+	print OUT "\n";
+}
+
+close OUT;
+close OUT2;
+
+
+sub read_ensembl_tab{
+	my ($f,$chr_c, $index_c) = @_;
+	my %h;
+	open IN,"$f" || die $!;
+	while(<IN>){
+		chomp;
+		next if(/^#/);
+		my @t = split /\t/;	
+		$h{$t[$chr_c-1]}{$t[$index_c-1]} = \@t;
+	}
+	close IN;
+	return \%h;
+}

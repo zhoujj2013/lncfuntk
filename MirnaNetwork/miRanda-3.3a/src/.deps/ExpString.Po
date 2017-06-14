@@ -1,0 +1,90 @@
+ExpString.o: ExpString.c ../config.h /usr/include/stdio.h \
+ /ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/features.h \
+ /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include/stddef.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/libio.h /usr/include/_G_config.h \
+ /ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/wchar.h \
+ /usr/include/bits/wchar.h /usr/include/gconv.h \
+ /ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include/stdarg.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h /usr/include/stdlib.h /usr/include/sys/types.h \
+ /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/bits/time.h \
+ /ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/sys/sysmacros.h \
+ /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/string.h /usr/include/bits/string.h \
+ /ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/bits/string2.h \
+ miranda.h
+
+../config.h:
+
+/usr/include/stdio.h:
+
+/ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include/stddef.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/wchar.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/gconv.h:
+
+/ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include/stdarg.h:
+
+/usr/include/bits/stdio_lim.h:
+
+/usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/time.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/alloca.h:
+
+/usr/include/string.h:
+
+/usr/include/bits/string.h:
+
+/ifs-accel/jiangpeiyong/software/install/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include-fixed/bits/string2.h:
+
+miranda.h:
