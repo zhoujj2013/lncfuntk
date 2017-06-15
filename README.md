@@ -1,16 +1,16 @@
-# lncnet
-Functional characterization of lncRNA by integrative network analysis.
+# lncFunTK
+LncRNA Functional annotation toolkit with integrative network analysis.
 
 ## Installation
 
-### Get lncnet
+### Get lncFunTK
 ```
-git clone git@github.com:zhoujj2013/lncnet.git
+git clone git@github.com:zhoujj2013/lncfuntk.git
 ```
 
 ### Install require python packages
 
-lncnet written by [PERL](https://www.perl.org/). It require python 2.7.X or above and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed by pip.
+lncFunTK written by [PERL](https://www.perl.org/). It require python 2.7.X or above and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed by pip.
 
 If you don't have pip, please download [get-pip.py](https://bootstrap.pypa.io/get-pip.py), then type:
 
@@ -21,7 +21,7 @@ python get-pip.py
 Install python packages one by one using pip module:
 
 ```
-cd lncnet
+cd lncfuntk
 python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt --user 
 ```
 
@@ -38,20 +38,19 @@ python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt
 ```
 
 
-## Build database
+## Obtain supporting dataset
 
-We need to prepare dataset for each genome, lncnet analysis rely on these datasets. To this end, we provide BuildDb module that can download dataset from UCSC, NCBI, EBI, mirBase and prepare these dataset automatically.
+Additional dataset is needed for lncFunTK analysis. Those dataset were downloaded from from UCSC, NCBI, EBI, mirBase and were preprocessing these dataset automatically by BuildDB module. You can obtain supporting dataset from [mm9](), [mm10](), [hg19](), [hg38]() from our server and you also can get the newest version from public databases by BuildDB module.
 
-### Build reference database without denovo lncRNA assembly
+### Download supporting dataset
 
-At present, we support preparing dataset for mouse(mm9) and human(hg19).
+At present, we support downloading dataset for mouse(mm9, mm10) and human(hg19, hg38).
 
 ```
 cd $INSTALL_DIR
-mkdir data
 cd data
-perl ../BuildDb/BuildDb.pl mm9 ./ > mm9.log
-# this program will download the reference data from public databases.
+wget http://sunlab.com/lncfuntk/mm9.tar.gz
+tar xzvf mm9.tar.gz
 ```
 
 ### Build reference database with denovo lncRNA assembly
@@ -65,6 +64,19 @@ cd data
 perl ../BuildDb/BuildDb.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
 ```
 
+### Create the latest supporting data by yourself
+
+We will update supporting data in our server every month. If you want to the latest supporting dataset, you build it by yourself with BuildDB module.
+
+```
+cd data
+# if mm9 directory is exists.
+rm -r mm9
+perl ../BuildDb/BuildDb.pl mm9 ./ > mm9.log
+# this program will download the reference data from public databases.
+# Be patient, at least 30 mins are needed for this step.
+```
+
 ## Run testing
 
 Run demo to check whether the package work well.
@@ -75,7 +87,8 @@ If you haven't built database for mouse(mm9), please run:
 
 ```
 cd data
-perl ../BuildDb/BuildDb.pl mm9 ./
+wget http://sunlab.com/lncfuntk/mm9.tar.gz
+tar xzvf mm9.tar.gz
 # around 20 mins
 ```
 
@@ -102,17 +115,19 @@ vim config.txt
 ### Run testing
 
 ```
-perl ../run_lncnet.pl config.txt
+perl ../run_lncfuntk.pl config.txt
 # then make the file
 make
 # around 15 mins.
+# you can check the report (index.html) in 07Report.
+firefox ./index.html
 ```
 
 ## Input files
 
 We need to place the input files into configure file. We need to provide expression profile (expr.lst), TFs binding profiles(tf.chipseq.lst), a list of express miRNA (MirRNA_expr_refseq.lst) and potential miRNA binding profile (miRNA.binding.potential.bed). The format for these files should be prepared as follow:
 
-### expr.lst
+### GeneExpressionProfiles (gene.expr.lst)
 
 Contain expression profile for different stages.
 
@@ -131,7 +146,7 @@ geneid2<tab>rpkm2
 geneidN<tab>rpkmN
 ```
 
-### tf.chipseq.lst
+### TfBindingProfiles (tf.chipseq.lst)
 
 Contain key transcription factor binding profiles.
 
@@ -144,7 +159,7 @@ TFn_gene_symbol<tab>TFn.binding.peaks.bed
 
 The input binding profile is in [bed format](https://genome.ucsc.edu/FAQ/FAQformat.html#format1), the fourth column should be unique binding IDs.
 
-### MirRNA_expr_refseq.lst
+### MirnaBindingProfiles (MirRNA_expr_refseq.lst)
 
 Contain the express microRNAs.
 
@@ -207,12 +222,12 @@ The format is the sample as Co-expression network.
 
 Contain all the interactions between 2 genes.
 ```
-04NetworkConstruction/04NetworkStat/mESCs.int.txt
+07Report/GeneRegulatoryNetwork.interaction.txt
 ```
 
 The format is the sample as Co-expression network.
 
-### Predicted functional lncRNA and nonfunctional lncRNAs
+### Predicted functional lncRNAs and their annotation
 
 Predict functional lncRNAs and corresponding FIS. 
 
@@ -230,15 +245,13 @@ id1<tab>FIS1
 idN<tab>FISN
 ```
 
-### lncRNA annotation
-
 GO annotation result for each predicted functional lncRNAs.
 ```
-06FunctionalAnnotation/lncFunNet.GO.enrich.result.txt
+07Report/FunctionalLncRNA.txt
 ```
 
 The format:
 
 ```
-id1<tab>FIS1
+id1<tab>FIS1<tab>GoTermId<tab>GO DESC<tab>pvalue<tab>adjust-pvalue<tab>neighbor genes
 ```

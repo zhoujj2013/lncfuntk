@@ -7,6 +7,10 @@ import re
 interaction_f = sys.argv[1]
 prefix = sys.argv.pop()
 
+# some program will fail in this step, so we check the result, if the result file exists, remove it.
+if os.path.exists('./' + prefix + '.network.pickle'):
+	os.remove('./' + prefix + '.network.pickle')
+
 if os.path.exists('./' + prefix + '.network.pickle'):
 	G = nx.read_gpickle('./' + prefix + '.network.pickle')
 else:

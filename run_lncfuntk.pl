@@ -14,8 +14,12 @@ sub usage {
         my $usage = << "USAGE";
 
         This script create makefile for LncFunNet analysis.
-        Author: zhoujj2013\@gmail.com 
+        Version: v1.0
+        Author: zhoujj2013\@gmail.com
+        Last modified: Wed Jun 14 16:06:43 HKT 2017
         Usage: $0 config.cfg
+        
+        NOTE: please check config.cfg format in ./demo directory.
 
 USAGE
 print "$usage";
@@ -57,19 +61,19 @@ my $c_outdir;
 mkdir "$out/01CoExprNetwork" unless(-d "$out/01CoExprNetwork");
 $c_outdir =  "$out/01CoExprNetwork";
 $mk .= "01CoExprNetwork.finished: $expr_f\n";
-$mk .= "\tcd $c_outdir && perl $Bin/CoExprNetwork/CoExprNetwork.pl $expr_f $expr_cutoff pearsonr $pcc_cutoff $prefix > 01CoExprNetwork.log 2>01CoExprNetwork.err && cd - && touch 01CoExprNetwork.finished\n";
+$mk .= "\tcd $c_outdir && perl $Bin/bin/CoExprNetwork/CoExprNetwork.pl $expr_f $expr_cutoff pearsonr $pcc_cutoff $prefix > 01CoExprNetwork.log 2>01CoExprNetwork.err && cd - && touch 01CoExprNetwork.finished\n";
 $all .= "01CoExprNetwork.finished "; 
 
 mkdir "$out/02TfNetwork" unless(-d "$out/02TfNetwork");
 $c_outdir =  "$out/02TfNetwork";
 $mk .= "02TfNetwork.finished: 01CoExprNetwork.finished\n";
-$mk .= "\tcd $c_outdir && perl $Bin/TfNetwork/TfNetwork.pl $chip_f $up $down $db > 02TfNetwork.log 2>02TfNetwork.err && cd - && touch 02TfNetwork.finished\n";
+$mk .= "\tcd $c_outdir && perl $Bin/bin/TfNetwork/TfNetwork.pl $chip_f $up $down $db > 02TfNetwork.log 2>02TfNetwork.err && cd - && touch 02TfNetwork.finished\n";
 $all .= "02TfNetwork.finished ";
 
 mkdir "$out/03MirnaNetwork" unless(-d "$out/03MirnaNetwork");
 $c_outdir =  "$out/03MirnaNetwork";
 $mk .= "03MirnaNetwork.finished: 02TfNetwork.finished\n";
-$mk .= "\tcd $c_outdir && perl $Bin/MirnaNetwork/MirnaNetwork.pl $clip_f $mir_f $db $prefix && cd - && touch 03MirnaNetwork.finished\n";
+$mk .= "\tcd $c_outdir && perl $Bin/bin/MirnaNetwork/MirnaNetwork.pl $clip_f $mir_f $db $prefix && cd - && touch 03MirnaNetwork.finished\n";
 $all .= "03MirnaNetwork.finished ";
 
 # create config file for network construction
@@ -88,25 +92,25 @@ close OUT;
 
 $c_outdir =  "$out/04NetworkConstruction";
 $mk .= "04NetworkConstruction.finished: 03MirnaNetwork.finished\n";
-$mk .= "\tcd $c_outdir && perl $Bin/NetworkConstruction/NetworkReconstruction.pl ./config.txt > ./$prefix.log 2>$prefix.err && cd - && touch 04NetworkConstruction.finished\n";
+$mk .= "\tcd $c_outdir && perl $Bin/bin/NetworkConstruction/NetworkReconstruction.pl ./config.txt > ./$prefix.log 2>$prefix.err && cd - && touch 04NetworkConstruction.finished\n";
 $all .= "04NetworkConstruction.finished ";
 
 mkdir "$out/05FunctionalityPrediction" unless(-d "$out/05FunctionalityPrediction");
 $c_outdir =  "$out/05FunctionalityPrediction";
 $mk .= "05FunctionalityPrediction.finished: 04NetworkConstruction.finished\n";
-$mk .= "\tcd $c_outdir && perl $Bin/FunctionalityPrediction/FunctionalityPrediction.pl $out/04NetworkConstruction/04NetworkStat/$prefix.int.txt $out/04NetworkConstruction/04NetworkStat/$prefix.Neighbor.stat $out/04NetworkConstruction/$prefix.geneexpr.lst $Bin/Training/pretrained.weight.value.lst > ./$prefix.log 2> ./$prefix.err && cd - && touch 05FunctionalityPrediction.finished\n";
+$mk .= "\tcd $c_outdir && perl $Bin/bin/FunctionalityPrediction/FunctionalityPrediction.pl $out/04NetworkConstruction/04NetworkStat/$prefix.int.txt $out/04NetworkConstruction/04NetworkStat/$prefix.Neighbor.stat $out/04NetworkConstruction/$prefix.geneexpr.lst $Bin/bin/Training/pretrained.weight.value.lst > ./$prefix.log 2> ./$prefix.err && cd - && touch 05FunctionalityPrediction.finished\n";
 $all .= "05FunctionalityPrediction.finished ";
 
 mkdir "$out/06FunctionalAnnotation" unless(-d "$out/06FunctionalAnnotation");
 $c_outdir =  "$out/06FunctionalAnnotation";
 $mk .= "06FunctionalAnnotation.finished: 05FunctionalityPrediction.finished\n";
-$mk .= "\tcd $c_outdir && perl $Bin/FunctionalAnnotation/FunctionalAnnotation.pl $db $out/04NetworkConstruction/04NetworkStat/$prefix.int.txt $out/04NetworkConstruction/$prefix.geneexpr.lst $out/05FunctionalityPrediction/functional.lncrna.lst && cd - && touch 06FunctionalAnnotation.finished\n";
+$mk .= "\tcd $c_outdir && perl $Bin/bin/FunctionalAnnotation/FunctionalAnnotation.pl $db $out/04NetworkConstruction/04NetworkStat/$prefix.int.txt $out/04NetworkConstruction/$prefix.geneexpr.lst $out/05FunctionalityPrediction/functional.lncrna.lst && cd - && touch 06FunctionalAnnotation.finished\n";
 $all .= "06FunctionalAnnotation.finished ";
 
 mkdir "$out/07Report" unless(-d "$out/07Report");
 $c_outdir =  "$out/07Report";
 $mk .= "07Report.finished: 06FunctionalAnnotation.finished\n";
-$mk .= "\tcd $c_outdir && perl $Bin/Report/Report.pl $conf && cd - && touch 07Report.finished\n";
+$mk .= "\tcd $c_outdir && perl $Bin/bin/Report/Report.pl $conf && cd - && touch 07Report.finished\n";
 $all .= "07Report.finished ";
 
 #mkdir "$out/07pioritizedFuncLnc" unless(-d "$out/07pioritizedFuncLnc");

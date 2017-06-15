@@ -8,10 +8,10 @@ SPE	mouse
 VERSION	mm9
 
 # dbname for this analysis, you should replace $DBDIR
-DB	$DBDIR
+DB	../data/mm9
 
 # time serise transcriptome profiles(multiple datasets, place the major at first, at least 3 datasets)
-EXPR	./test_data/gene.expr.lst
+EXPR	./test_data/MirnaBindingProfiles/gene.expr.lst
 
 # the expression profile column corresponsing to the cell stage that you want
 # to prediction long nocoding RNA
@@ -19,11 +19,11 @@ EXPRCUTOFF	0.5
 PCCCUTOFF	0.95
 
 # TF binding peaks from TF chipseq (multiple datasets, at least the key tfs)
-CHIP	./test_data/tf.chipseq.lst
+CHIP	./test_data/TfBindingProfiles/tf.chipseq.lst
 PROMTER	10000,5000
 
 # Ago2 binding site from CLIP-seq (1 dataset)
-CLIP	./test_data/miRNA.binding.potential.bed
+CLIP	./test_data/MirnaBindingProfiles/miRNA.binding.potential.bed
 EXTEND	100
 
 # express miRNA list, must be office gene symbol and corresponding transcript
