@@ -125,9 +125,9 @@ firefox ./index.html
 
 ## Input files
 
-We need to place the input files into configure file. We need to provide expression profile (expr.lst), TFs binding profiles(tf.chipseq.lst), a list of express miRNA (MirRNA_expr_refseq.lst) and potential miRNA binding profile (miRNA.binding.potential.bed). The format for these files should be prepared as follow:
+We need to place the input files into configure file. We need to provide expression profile (gene.expr.lst), TFs binding profiles(tf.chipseq.lst), a list of express miRNA (MirRNA_expr_refseq.lst) and potential miRNA binding profile (miRNA.binding.potential.bed). The format for these files should be prepared as follow:
 
-### GeneExpressionProfiles (gene.expr.lst)
+### Gene expression profiles (GeneExpressionProfiles/gene.expr.lst)
 
 Contain expression profile for different stages.
 
@@ -146,7 +146,7 @@ geneid2<tab>rpkm2
 geneidN<tab>rpkmN
 ```
 
-### TfBindingProfiles (tf.chipseq.lst)
+### TF binding profiles (TfBindingProfiles/tf.chipseq.lst)
 
 Contain key transcription factor binding profiles.
 
@@ -159,7 +159,7 @@ TFn_gene_symbol<tab>TFn.binding.peaks.bed
 
 The input binding profile is in [bed format](https://genome.ucsc.edu/FAQ/FAQformat.html#format1), the fourth column should be unique binding IDs.
 
-### MirnaBindingProfiles (miRNA.binding.potential.bed)
+### Mirna binding profiles (MirnaBindingProfiles/miRNA.binding.potential.bed)
 
 A list of potential miRNA binding site in bed format.(Note: the fourth column should be unique.)
 
