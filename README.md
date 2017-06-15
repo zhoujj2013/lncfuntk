@@ -159,7 +159,18 @@ TFn_gene_symbol<tab>TFn.binding.peaks.bed
 
 The input binding profile is in [bed format](https://genome.ucsc.edu/FAQ/FAQformat.html#format1), the fourth column should be unique binding IDs.
 
-### MirnaBindingProfiles (MirRNA_expr_refseq.lst)
+### MirnaBindingProfiles (miRNA.binding.potential.bed)
+
+A list of potential miRNA binding site in bed format.(Note: the fourth column should be unique.)
+
+```
+# chrom<tab>start<tab>end<tab>id
+chr1  234 289 mESCs_001
+chr1  2834 2890 mESCs_002
+...
+```
+
+### Express miRNA list (MirRNA_expr_refseq.lst)
 
 Contain the express microRNAs.
 
@@ -170,16 +181,6 @@ miRNA1_symbol<tab>refseq_id1
 miRNA2_symbol<tab>refseq_id2
 ...
 miRNAn_symbol<tab>refseq_idn
-```
-### miRNA.binding.potential.bed
-
-A list of potential miRNA binding site in bed format.(Note: the fourth column should be unique.)
-
-```
-# chrom<tab>start<tab>end<tab>id
-chr1  234 289 mESCs_001
-chr1  2834 2890 mESCs_002
-...
 ```
 
 ## Output
