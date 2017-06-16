@@ -11,7 +11,7 @@ VERSION	mm9
 DB	../data/mm9
 
 # time serise transcriptome profiles(multiple datasets, place the major at first, at least 3 datasets)
-EXPR	./test_data/MirnaBindingProfiles/gene.expr.lst
+EXPR	./test_data/GeneExpressionProfiles/gene.expr.lst
 
 # the expression profile column corresponsing to the cell stage that you want
 # to prediction long nocoding RNA
