@@ -5,12 +5,12 @@ LncRNA Functional annotation toolkit with integrative network analysis.
 
 ### Get lncFunTK
 ```
-git clone git@github.com:zhoujj2013/lncfuntk.git
+git clone https://github.com/zhoujj2013/lncfuntk.git
 ```
 
 ### Install require python packages
 
-lncFunTK written by [PERL](https://www.perl.org/). It require python 2.7.X or above and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed by pip.
+lncFunTK written by [PERL](https://www.perl.org/) and [python](https://www.python.org/). It require python 2.7.X or above and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed by [pip](https://pypi.python.org/pypi/pip).
 
 If you don't have pip, please download [get-pip.py](https://bootstrap.pypa.io/get-pip.py), then type:
 
@@ -61,31 +61,32 @@ At present, we support preparing dataset for mouse(mm9) and human(hg19).
 cd ./lncFNTK
 mkdir data
 cd data
-perl ../BuildDb/BuildDb.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
+perl ../bin/BuildDb/BuildDb.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
 ```
 
 ### Create the latest supporting data by yourself
 
-We will update supporting data in our server every month. If you want to the latest supporting dataset, you build it by yourself with BuildDB module.
+We will update supporting data in our server every month. If you want to download the latest supporting dataset, you can build it by yourself with BuildDB module.
 
 ```
 cd data
 # if mm9 directory is exists.
 rm -r mm9
-perl ../BuildDb/BuildDb.pl mm9 ./ > mm9.log
+perl ../bin/BuildDb/BuildDb.pl mm9 ./ > mm9.log
 # this program will download the reference data from public databases.
 # Be patient, at least 30 mins are needed for this step.
 ```
 
 ## Run testing
 
-Run demo to check whether the package work well.
+After you installed the lncFunTK package, you can run demo to check whether the package work well (the data was well prepared in ./demo).
 
 ### Create database
 
 If you haven't built database for mouse(mm9), please run:
 
 ```
+cd $INSTALL_DIR
 cd data
 wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
 tar xzvf mm9.tar.gz
@@ -125,22 +126,29 @@ firefox ./index.html
 
 ## Input files
 
-We need to place the input files into configure file. We need to provide expression profile (gene.expr.lst), TFs binding profiles(tf.chipseq.lst), a list of express miRNA (MirRNA_expr_refseq.lst) and potential miRNA binding profile (miRNA.binding.potential.bed). The format for these files should be prepared as follow:
+We need to provide the input files in configure file. We listed the files as follow: 
+1. Gene expression profile (gene.expr.lst, from time serise RNA-seq analysis);
+2. TFs binding profiles(tf.chipseq.lst, from multiple TF chipseq analysis);
+3. Potential miRNA binding profile (miRNA.binding.potential.bed, from Ago CLIP-seq analysis);
+3. a list of express miRNA (MirRNA_expr_refseq.lst).
+
+The format for these files should be prepared as follow:
 
 ### Gene expression profiles (GeneExpressionProfiles/gene.expr.lst)
 
-Contain expression profile for different stages.
+Contain expression profiles from different stages.
 
 ```
-stage1<tab>geneexpr.table1
+stage1<tab>geneexpr.table1 (the corresponding expression profile for stage1)
 stage2<tab>geneexpr.table2
 ...
 stageN<tab>geneexpr.tableN
 ```
 
 The file format for expression table file:
+
 ```
-geneid1<tab>rpkm1
+geneid1<tab>rpkm1 (the corresponding expression level for geneid1)
 geneid2<tab>rpkm2
 ...
 geneidN<tab>rpkmN
