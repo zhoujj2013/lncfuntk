@@ -134,6 +134,36 @@ We need to provide the input files in configure file. We listed the files as fol
 
 The format for these files should be prepared as follow:
 
+```
+./
+├── config.txt
+└── test_data
+    ├── GeneExpressionProfiles
+    │   ├── CM.expr
+    │   ├── CP.expr
+    │   ├── EM.expr
+    │   ├── gene.expr.lst
+    │   └── mESCs.expr
+    ├── MirnaBindingProfiles
+    │   └── miRNA.binding.potential.bed
+    ├── MirRNA_expr_refseq.lst
+    ├── prepare.sh
+    └── TfBindingProfiles
+        ├── Brd4.bed
+        ├── Esrrb.bed
+        ├── Klf4.bed
+        ├── Nanog.bed
+        ├── Nr5a2.bed
+        ├── Pou5f1.bed
+        ├── Prdm14.bed
+        ├── Smad3.bed
+        ├── Sox2.bed
+        ├── Stat3.bed
+        ├── Tcf3.bed
+        ├── tf.chipseq.lst
+        └── Tfcp2l1.bed
+```
+
 ### Gene expression profiles (GeneExpressionProfiles/gene.expr.lst)
 
 Contain expression profiles from different stages.
