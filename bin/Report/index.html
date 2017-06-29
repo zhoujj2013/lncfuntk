@@ -83,7 +83,7 @@
 	
 	<h3>Subnetwork for top 5 functional lncRNAs</h3>
 	<hr/>
-	<div id="subnw"></div>
+	<div id="subnw" style="width=auto; height:auto;"></div>
 	<img src="./nodeLegend.png" alt="Node legend" style="width:109px;height:84px;">
 	<p>Download all interactions: <a href="./GeneRegulatoryNetwork.interaction.txt">here<a>.</p>
 	<hr/>
@@ -180,9 +180,10 @@
 		});
 	});
     </script>
+
 	<script>
 	// for subnetwork, 
-	var width = 1024,
+	var width = document.body.clientWidth,
 		height = 1024;
 
 	//var color = d3.scale.category20();
@@ -217,7 +218,7 @@
 		  .enter().append("circle")
 		  .attr("class", "node")
 		  //.attr("r", 10)
-		  .attr("r", function(d) {return d.size; })
+		  .attr("r", function(d) {return (d.size/10)+3; })
 		  .style("fill", function(d) { return color[d.group]; })
 		  .call(force.drag);
 

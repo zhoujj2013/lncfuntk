@@ -74,7 +74,7 @@ while(<IN>){
 	}elsif($strand eq "minus"){
 		my $e = $orgin_e - $coor[0] + 1;
 		my $s = $e - ($coor[1] - $coor[0] + 1) + 1;
-		push @{$out{$orgin_chr}}, [$orgin_chr,$s,$e,$record_id,1000,"+"];
+		push @{$out{$orgin_chr}}, [$orgin_chr,$s,$e,$record_id,1000,"-"];
 		#print "$s\t$e\n";
 	}
 	$i++;
