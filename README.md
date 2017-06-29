@@ -48,7 +48,7 @@ Additional dataset is needed for lncFunTK analysis. Those dataset were downloade
 At present, we support downloading dataset for mouse(mm9, mm10) and human(hg19, hg38).
 
 ```
-cd $INSTALL_DIR
+cd ./lncfuntk
 cd data
 wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
 tar xzvf mm9.tar.gz
@@ -59,8 +59,7 @@ tar xzvf mm9.tar.gz
 At present, we support preparing dataset for mouse(mm9) and human(hg19).
 
 ```
-cd ./lncFNTK
-mkdir data
+cd ./lncfuntk
 cd data
 perl ../bin/BuildDb/BuildDb.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
 ```
@@ -87,7 +86,7 @@ After you installed the lncFunTK package, you can run demo to check whether the 
 If you haven't built database for mouse(mm9), please run:
 
 ```
-cd $INSTALL_DIR
+cd ./lncfuntk
 cd data
 wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
 tar xzvf mm9.tar.gz
