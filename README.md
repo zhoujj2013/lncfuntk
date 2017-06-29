@@ -12,9 +12,10 @@ git clone https://github.com/zhoujj2013/lncfuntk.git
 
 lncFunTK written by [PERL](https://www.perl.org/) and [python](https://www.python.org/). It require python 2.7.X or above and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed by [pip](https://pypi.python.org/pypi/pip).
 
-If you don't have pip, please download [get-pip.py](https://bootstrap.pypa.io/get-pip.py), then type:
+If you don't have pip, please download get-pip.py from https://bootstrap.pypa.io/get-pip.py, then type:
 
 ```
+wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 ```
 
