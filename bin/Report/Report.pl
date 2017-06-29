@@ -41,7 +41,7 @@ print OUT encode_json \%conf;
 close OUT;
 
 # Functional lncRNA list Top 10
-`cp ../06FunctionalAnnotation/lncFunNet.GO.enrich.result.txt FunctionalLncRNA.txt`;
+`less ../06FunctionalAnnotation/lncFunNet.GO.enrich.result.txt | sort -k2nr > FunctionalLncRNA.txt`;
 
 my %top5;
 my %go;
@@ -54,6 +54,9 @@ while(<IN>){
 	chomp;
 	my @t = split /\t/;
 	my @row = @t[0 .. 6];
+	$row[1] = sprintf("%.3f",$row[1]);
+	$row[4] = sprintf("%.3e",$row[4]);
+	$row[5] = sprintf("%.3e",$row[5]);
 	push @{$lncrna{"data"}}, \@row;
 	$top5{$t[0]} = \@row if($i <= 5);
 	my $go_id = "$t[2]:$t[3]";
@@ -77,7 +80,10 @@ my $j = 1;
 foreach my $gid (@sorted_go){
 	last if($j > 10);
 	push @{$goTop10{"categories"}},$gid;
-	push @{$goTop10{"data"}},($go{$gid}/($i-1))*100;
+	my $go_percentage = ($go{$gid}/($i-1))*100;
+	$go_percentage = sprintf("%.3f",$go_percentage);
+	#print "$go_percentage\n";
+	push @{$goTop10{"data"}},$go_percentage*1;
 	$j++;
 }
 

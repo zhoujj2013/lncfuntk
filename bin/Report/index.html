@@ -119,7 +119,8 @@
 	// for the table, https://www.datatables.net/examples/data_sources/ajax.html
 	$(document).ready(function() {
 		$('#lncrna').DataTable( {
-			"ajax": './lncrna.json'
+			"ajax": './lncrna.json',
+			"order": [[ 1, "desc" ]]
 		} );
 	} );
 	
@@ -182,7 +183,7 @@
 	<script>
 	// for subnetwork, 
 	var width = 1024,
-		height = 800;
+		height = 1024;
 
 	//var color = d3.scale.category20();
 	var color = ["blue","rgb(244,177,131)","rgb(146,208,80)","rgb(255,102,255)"];
