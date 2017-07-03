@@ -93,7 +93,7 @@ print OUT encode_json \%goTop10;
 close OUT; 
 
 # Integrate regulatory network demo
-`cp ../04NetworkConstruction/04NetworkStat/mESCs.int.txt GeneRegulatoryNetwork.interaction.txt`;
+`cp ../04NetworkConstruction/04NetworkStat/$conf{PREFIX}.int.txt GeneRegulatoryNetwork.interaction.txt`;
 
 # a program to get lncRNA subnetwork
 # cp gene type file to get type information
