@@ -41,14 +41,14 @@ python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt
 
 ## Obtain supporting dataset
 
-Additional dataset is needed for lncFunTK analysis. Those dataset were downloaded from from UCSC, NCBI, EBI, mirBase and were preprocessing these dataset automatically by BuildDB module. You can obtain supporting dataset from [mm9](http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz), [mm10](http://137.189.133.71/zhoujj/lncfuntk/mm10.tar.gz), [hg19](http://137.189.133.71/zhoujj/lncfuntk/hg19.tar.gz), [hg38](http://137.189.133.71/zhoujj/lncfuntk/hg38.tar.gz) from our server and you also can get the newest version from public databases by BuildDB module.
+Additional dataset is needed for lncFunTK analysis. Those dataset were downloaded from from UCSC, NCBI, EBI, mirBase and were preprocessing these dataset automatically by BuildDB module. You can obtain supporting dataset for [mm9](http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz), [mm10](http://137.189.133.71/zhoujj/lncfuntk/mm10.tar.gz), [hg19](http://137.189.133.71/zhoujj/lncfuntk/hg19.tar.gz), [hg38](http://137.189.133.71/zhoujj/lncfuntk/hg38.tar.gz) from our server and you also can get the newest version from public databases by BuildDB module.
 
 ### Download supporting dataset
 
 At present, we support downloading dataset for mouse(mm9, mm10) and human(hg19, hg38).
 
 ```
-cd $INSTALL_DIR
+cd ./lncfuntk
 cd data
 wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
 tar xzvf mm9.tar.gz
@@ -59,8 +59,7 @@ tar xzvf mm9.tar.gz
 At present, we support preparing dataset for mouse(mm9) and human(hg19).
 
 ```
-cd ./lncFNTK
-mkdir data
+cd ./lncfuntk
 cd data
 perl ../bin/BuildDb/BuildDb.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
 ```
@@ -87,7 +86,7 @@ After you installed the lncFunTK package, you can run demo to check whether the 
 If you haven't built database for mouse(mm9), please run:
 
 ```
-cd $INSTALL_DIR
+cd ./lncfuntk
 cd data
 wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
 tar xzvf mm9.tar.gz
@@ -133,7 +132,7 @@ We need to provide the input files in configure file. We listed the files as fol
 3. Potential miRNA binding profile (miRNA.binding.potential.bed, from Ago CLIP-seq analysis);
 3. a list of express miRNA (MirRNA_expr_refseq.lst).
 
-The format for these files should be prepared as follow:
+These files should be prepared in a directory as follow:
 
 ```
 ./
@@ -190,7 +189,7 @@ geneidN<tab>rpkmN
 Contain key transcription factor binding profiles.
 
 ```
-TF1_gene_symbol<tab>TF1.binding.peaks.bed
+TF1_gene_symbol<tab>TF1.binding.peaks.bed (the corresponding binding profile for TF1)
 TF2_gene_symbol<tab>TF2.binding.peaks.bed
 ...
 TFn_gene_symbol<tab>TFn.binding.peaks.bed
@@ -200,7 +199,7 @@ The input binding profile is in [bed format](https://genome.ucsc.edu/FAQ/FAQform
 
 ### Mirna binding profiles (MirnaBindingProfiles/miRNA.binding.potential.bed)
 
-A list of potential miRNA binding site in bed format.(Note: the fourth column should be unique.)
+A list of potential miRNA binding site in bed format.(Note: the fourth column should be a unique ID.)
 
 ```
 # chrom<tab>start<tab>end<tab>id
@@ -216,7 +215,7 @@ Contain the express microRNAs.
 The format showed as follow:
 
 ```
-miRNA1_symbol<tab>refseq_id1
+miRNA1_symbol<tab>refseq_id1 (Corresponding miRNA transcript id in RefSeq database for miRNA1_symbol)
 miRNA2_symbol<tab>refseq_id2
 ...
 miRNAn_symbol<tab>refseq_idn
@@ -224,9 +223,18 @@ miRNAn_symbol<tab>refseq_idn
 
 ## Output
 
+### LncFunTK analysis report
+
+You can visualize LncFunTK analysis result by:
+
+```
+firefox index.html # or open in firefox browser
+```
+[demo](http://137.189.133.71/zhoujj/lncfuntk/demo/07Report/)
+
 ### Co-expression network
 
-Contain co-expression network.
+This plain text file contain co-expression network information by co-expression analysis of expression profile in multiple stages.
 
 ```
 01CoExprNetwork/prefix.CoExpr.int
@@ -241,22 +249,22 @@ gene1<tab>gene2<tab>interaction_type<tab>score<tab>evidence
 
 ### TF regulatory network
 
-Contain tf regulatory netowrk information.
+This plain text file contain TF regulatory network information by multiple TF binding profiles analysis.
 
 ```
 02TfNetwork/TfNetwork.int
 ```
 
-The format is the sample as Co-expression network.
+The format is the same as Co-expression network.
 
 ### MiRNA-gene regulatory network
 
-Contain microRNA-gene interactions.
+This plain text file contain microRNA-gene interactions by analysis Ago2 CLIP binding profile.
 ```
 03MirnaNetwork/prefix.MirTargetGeneLevel.txt
 ```
 
-The format is the sample as Co-expression network.
+The format is the same as Co-expression network.
 
 ### Integrative gene regulatory network
 
@@ -269,7 +277,7 @@ The format is the sample as Co-expression network.
 
 ### Predicted functional lncRNAs and their annotation
 
-Predict functional lncRNAs and corresponding FIS. 
+Predicted functional lncRNAs and corresponding FIS. 
 
 ```
 05FunctionalityPrediction/functional.lncrna.lst
@@ -279,10 +287,10 @@ Predict functional lncRNAs and corresponding FIS.
 The format:
 
 ```
-id1<tab>FIS1
-id1<tab>FIS1
+lncRNA_id1<tab>FIS1 (Corresponding Functional Information Score (FIS) for corresponding lncRNAs)
+lncRNA_id2<tab>FIS2
 ...
-idN<tab>FISN
+lncRNA_idN<tab>FISN
 ```
 
 GO annotation result for each predicted functional lncRNAs.
