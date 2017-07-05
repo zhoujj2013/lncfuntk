@@ -128,7 +128,7 @@ firefox ./index.html
 
 ## Run lncFunTK analysis on your data
 
-To run lncFunTK analysis on your biological system, you need to prepare input dataset as we described in [Input files section](#input-files), then run lncFunTK as we described in [run demo section](#run-demo). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please reference to [Output files section](#uutput-files).
+To run lncFunTK analysis on your biological system, you need to prepare input dataset as we described in [Input files section](#input-files), then run lncFunTK as we described in [run demo section](#run-demo). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please reference to [Output files section](#output-files).
 
 ## Input files
 
@@ -138,7 +138,7 @@ We need to provide the input files in configure file. We listed the files as fol
 3. Potential miRNA binding profile (miRNA.binding.potential.bed, from Ago CLIP-seq analysis);
 3. a list of express miRNA (MirRNA_expr_refseq.lst).
 
-These files should be prepared in a directory as follow:
+These files should be prepared in a similar directory as used for demo:
 
 ```
 ./
