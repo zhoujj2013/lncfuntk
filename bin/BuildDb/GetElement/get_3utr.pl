@@ -62,9 +62,11 @@ while(<IN>){
 			if($cdsStart + 1 == $exonStart[$i]){
 				last;
 			}elsif($cdsStart < $exonEnd[$i] && $cdsStart >= $exonStart[$i]){
-				print "$t[2]\t$exonStart[$i]\t$cdsStart\t$t[1]\t$t[12]\t$t[3]\n";
+				my $trueStart = $cdsStart + 1;
+				print "$t[2]\t$exonStart[$i]\t$trueStart\t$t[1]\t$t[12]\t$t[3]\n";
 				last;
 			}elsif($cdsStart >= $exonEnd[$i]){
+				#my $trueEnd = $exonEnd[$i] + 1;
 				print "$t[2]\t$exonStart[$i]\t$exonEnd[$i]\t$t[1]\t$t[12]\t$t[3]\n";
 			}
 		}
