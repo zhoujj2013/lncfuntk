@@ -54,19 +54,21 @@ wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
 tar xzvf mm9.tar.gz
 ```
 
-### Build reference database with denovo lncRNA assembly
+### Add denovo assembled lncRNAs to supporting dataset
 
-At present, we support preparing dataset for mouse(mm9) and human(hg19).
+After you download supporting dataset from our server and untar it, you can add new assembled lncRNAs to supporting dataset, so that you can investigate functionality of novel lncRNAs.
 
 ```
 cd ./lncfuntk
 cd data
-perl ../bin/BuildDb/BuildDb.pl mm9 ./ novel.final.gtf newdb >mm9.log 2>mm9.err
+perl ../bin/BuildDb/BuildDb.pl mm9 ./ novel.lncRNA.gtf newdb >mm9.log 2>mm9.err
 ```
 
-### Create the latest supporting data by yourself
+Note: "novel.lncRNA.gtf" represent new assembled lncRNA in [gtf](http://www.ensembl.org/info/website/upload/gff.html) format. "newdb" represent for the name of supporting dataset that added new assembled lncRNAs.
 
-We will update supporting data in our server every month. If you want to download the latest supporting dataset, you can build it by yourself with BuildDB module.
+### Create the latest supporting data
+
+We will update supporting dataset in our server every 3 months. If you want to download the latest supporting dataset, you can build it by yourself with BuildDB module in lncFunTK package.
 
 ```
 cd data
@@ -77,7 +79,7 @@ perl ../bin/BuildDb/BuildDb.pl mm9 ./ > mm9.log
 # Be patient, at least 30 mins are needed for this step.
 ```
 
-## Run testing
+## Run demo
 
 After you installed the lncFunTK package, you can run demo to check whether the package work well (the data was well prepared in ./demo).
 
@@ -113,7 +115,7 @@ vim config.txt
 # replace $DBDIR with the directory you create reference database
 ```
 
-### Run testing
+### Run lncFunTk analysis
 
 ```
 perl ../run_lncfuntk.pl config.txt
@@ -124,6 +126,10 @@ make
 firefox ./index.html
 ```
 
+## Run lncFunTK analysis on your data
+
+To run lncFunTK analysis on your biological system, you need to prepare input dataset as we described in [Input files section](#input-files), then run lncFunTK as we described in [run demo section](#run-demo). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please reference to [Output files section](#output-files).
+
 ## Input files
 
 We need to provide the input files in configure file. We listed the files as follow: 
@@ -132,7 +138,7 @@ We need to provide the input files in configure file. We listed the files as fol
 3. Potential miRNA binding profile (miRNA.binding.potential.bed, from Ago CLIP-seq analysis);
 3. a list of express miRNA (MirRNA_expr_refseq.lst).
 
-These files should be prepared in a directory as follow:
+These files should be prepared in a similar directory as used for demo:
 
 ```
 ./
@@ -221,7 +227,7 @@ miRNA2_symbol<tab>refseq_id2
 miRNAn_symbol<tab>refseq_idn
 ```
 
-## Output
+## Output files
 
 ### LncFunTK analysis report
 
