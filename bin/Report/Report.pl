@@ -88,6 +88,8 @@ for(my $j = scalar(@sorted_go) - 1; $j > 0;$j--){
 	$count++;
 }
 
+@{$goTop10{"data"}} = reverse(@{$goTop10{"data"}});
+
 # output barchart data
 open OUT,">","./gotop10.json" || die $!;
 print OUT encode_json \%goTop10;
