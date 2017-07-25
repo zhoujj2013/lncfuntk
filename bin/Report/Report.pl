@@ -75,7 +75,7 @@ my %goTop10;
 $goTop10{"categories"} = [];
 $goTop10{"name"} = "Percentage(%)";
 $goTop10{"data"} = [];
-my @sorted_go = sort {$go{$b} <=> $go{$a}} keys %go;
+my @sorted_go = sort {$go{$a} <=> $go{$b}} keys %go;
 my $count = 1;
 for(my $j = scalar(@sorted_go) - 1; $j > 0;$j--){
 	my $gid = $sorted_go[$j];
