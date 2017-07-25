@@ -76,15 +76,16 @@ $goTop10{"categories"} = [];
 $goTop10{"name"} = "Percentage(%)";
 $goTop10{"data"} = [];
 my @sorted_go = sort {$go{$b} <=> $go{$a}} keys %go;
-my $j = 1;
-foreach my $gid (@sorted_go){
-	last if($j > 10);
+my $count = 1;
+for(my $j = scalar(@sorted_go) - 1; $j > ;$j--){
+	my $gid = $sorted_go[$j];
+	last if($count > 10);
 	push @{$goTop10{"categories"}},$gid;
 	my $go_percentage = ($go{$gid}/($i-1))*100;
 	$go_percentage = sprintf("%.3f",$go_percentage);
 	#print "$go_percentage\n";
 	push @{$goTop10{"data"}},$go_percentage*1;
-	$j++;
+	$count++;
 }
 
 # output barchart data
