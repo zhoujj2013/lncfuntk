@@ -1,4 +1,7 @@
+# setting output directory
 OUTDIR	./
+
+# setting output file prefix
 PREFIX	mESCs
 
 # human/mouse
