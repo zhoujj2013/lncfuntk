@@ -1,5 +1,5 @@
 # lncFunTK
-LncRNA Functional annotation toolkit with integrative network analysis.
+LncRNA Functional annotation ToolKit with integrative network analysis.
 
 ## Installation
 
@@ -8,9 +8,9 @@ LncRNA Functional annotation toolkit with integrative network analysis.
 git clone https://github.com/zhoujj2013/lncfuntk.git
 ```
 
-### Install require python packages
+### Dependencies
 
-lncFunTK written by [PERL](https://www.perl.org/) and [python](https://www.python.org/). It require python 2.7.X or above and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed by [pip](https://pypi.python.org/pypi/pip).
+lncFunTK written by [PERL](https://www.perl.org/) and [python](https://www.python.org/). It requires python 2.7 and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed through [pip](https://pypi.python.org/pypi/pip).
 
 If you don't have pip, please download get-pip.py from https://bootstrap.pypa.io/get-pip.py and install pip module with [instructions](https://pip.pypa.io/en/stable/installing/):
 
@@ -26,7 +26,7 @@ cd lncfuntk
 python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt --user 
 ```
 
-You can also can run it in python virtual environment, if you don't have superuser privilege.
+You can also run it in python virtual environment, if you don't have superuser privilege.
 
 ```
 # install virtualenv
@@ -35,13 +35,22 @@ pip install virtualenv
 cd my_project_folder
 virtualenv venv
 source venv/bin/activate
+
+# $INSTALL_DIR represent the lncfuntk install directory.
 python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt
 ```
+### Installation
 
+If everything is ready, run command as follow:
+
+```
+cd ./lncfuntk
+perl install.pl (write a script for installation)
+```
 
 ## Obtain supporting dataset
 
-Additional dataset is needed for lncFunTK analysis. Those dataset were downloaded from from UCSC, NCBI, EBI, mirBase and were preprocessing these dataset automatically by BuildDB module. You can obtain supporting dataset for [mm9](http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz), [mm10](http://137.189.133.71/zhoujj/lncfuntk/mm10.tar.gz), [hg19](http://137.189.133.71/zhoujj/lncfuntk/hg19.tar.gz), [hg38](http://137.189.133.71/zhoujj/lncfuntk/hg38.tar.gz) from our server and you also can get the newest version from public databases by BuildDB module.
+Additional dataset are needed for lncFunTK analysis. They are downloaded from from UCSC, NCBI, EBI, mirBase and preprocessed by BuildDB module. You can obtain supporting datasets for [mm9](http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz), [mm10](http://137.189.133.71/zhoujj/lncfuntk/mm10.tar.gz), [hg19](http://137.189.133.71/zhoujj/lncfuntk/hg19.tar.gz), [hg38](http://137.189.133.71/zhoujj/lncfuntk/hg38.tar.gz) from our server or the newest version from public databases by BuildDB module.
 
 ### Download supporting dataset
 
@@ -56,7 +65,7 @@ tar xzvf mm9.tar.gz
 
 ### Add denovo assembled lncRNAs to supporting dataset
 
-After you download supporting dataset from our server and untar it, you can add new assembled lncRNAs to supporting dataset, so that you can investigate functionality of novel lncRNAs.
+After you download supporting dataset from our server and untar it, you can add newly assembled lncRNAs to investigate their functionality.
 
 ```
 cd ./lncfuntk
@@ -64,80 +73,48 @@ cd data
 perl ../bin/BuildDb/BuildDb.pl mm9 ./ novel.lncRNA.gtf newdb >mm9.log 2>mm9.err
 ```
 
-Note: "novel.lncRNA.gtf" represent new assembled lncRNA in [gtf](http://www.ensembl.org/info/website/upload/gff.html) format. "newdb" represent for the name of supporting dataset that added new assembled lncRNAs.
+Note: "novel.lncRNA.gtf" represents newly assembled lncRNA in [gtf](http://www.ensembl.org/info/website/upload/gff.html) format. "newdb" represents the name of supporting datasets with newly assembled lncRNAs added.
 
 ### Create the latest supporting data
 
-We will update supporting dataset in our server every 3 months. If you want to download the latest supporting dataset, you can build it by yourself with BuildDB module in lncFunTK package.
+We will update supporting datasets in our server every 3 months. If you want to download the latest supporting dataset, you can build it by yourself with BuildDB module in lncFunTK package.
 
 ```
 cd data
 # if mm9 directory is exists.
 rm -r mm9
 perl ../bin/BuildDb/BuildDb.pl mm9 ./ > mm9.log
-# this program will download the reference data from public databases.
+# this program will download the latest supporting datasets from public databases.
 # Be patient, at least 30 mins are needed for this step.
 ```
 
 ## Run demo
 
-After you installed the lncFunTK package, you can run demo to check whether the package work well (the data was well prepared in ./demo).
-
-### Create database
-
-If you haven't built database for mouse(mm9), please run:
+Once you installed the lncFunTK package and obtained the supporting datasets, you can run demo to examine whether the package works well (the test dataset is placed in ./demo directory within lncFunTK).
 
 ```
-cd ./lncfuntk
-cd data
-wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
-tar xzvf mm9.tar.gz
-# around 20 mins
-```
-
-### Prepare test data for demo
-
-```
-cd $INSTALL_DIR
 cd demo
-cd demo/test_data
-# prepare test dataset
-sh prepare.sh
-cd ..
-# around 3 seconds
-```
 
-### Write the configure file
-
-You should replace $DBDIR with the directory you create reference database in config.txt.
-```
-vim config.txt
-# replace $DBDIR with the directory you create reference database
-```
-
-### Run lncFunTk analysis
-
-```
 perl ../run_lncfuntk.pl config.txt
 # then make the file
 make
+
 # around 15 mins.
 # you can check the report (index.html) in 07Report.
-firefox ./index.html
+firefox ./07Report/index.html
 ```
 
 ## Run lncFunTK analysis on your data
 
-To run lncFunTK analysis on your biological system, you need to prepare input dataset as we described in [Input files section](#input-files), then run lncFunTK as we described in [run demo section](#run-demo). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please reference to [Output files section](#output-files).
+To run lncFunTK analysis on your data, you need to prepare input dataset as we described in [Input files section](#input-files), then run lncFunTK as we described in [run demo section](#run-demo). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please refer to [Output files section](#output-files).
 
 ## Input files
 
-We need to provide the input files in configure file. We listed the files as follow: 
-1. Gene expression profile (gene.expr.lst, from time serise RNA-seq analysis);
-2. TFs binding profiles(tf.chipseq.lst, from multiple TF chipseq analysis);
-3. Potential miRNA binding profile (miRNA.binding.potential.bed, from Ago CLIP-seq analysis);
-3. a list of express miRNA (MirRNA_expr_refseq.lst).
-
+You need to provide the input files in configure file:
+1.	Gene expression profile (gene.expr.lst, a serial of RNA-seq analysis);
+2.	TFs binding profiles(tf.chipseq.lst, from multiple TF ChiPseq analysis);
+3.	Potential miRNA binding profile (miRNA.binding.potential.bed, from Ago CLIP-seq analysis);
+4.	A list of expressed miRNA (MirRNA_expr_refseq.lst).
 These files should be prepared in a similar directory as used for demo:
 
 ```
@@ -205,7 +182,7 @@ The input binding profile is in [bed format](https://genome.ucsc.edu/FAQ/FAQform
 
 ### Mirna binding profiles (MirnaBindingProfiles/miRNA.binding.potential.bed)
 
-A list of potential miRNA binding site in bed format.(Note: the fourth column should be a unique ID.)
+A list of potential miRNA binding sites in bed format.(Note: the fourth column should be a unique ID.)
 
 ```
 # chrom<tab>start<tab>end<tab>id
@@ -216,15 +193,53 @@ chr1  2834 2890 mESCs_002
 
 ### Express miRNA list (MirRNA_expr_refseq.lst)
 
-Contain the express microRNAs.
-
-The format showed as follow:
+Contain the expressed microRNAs.
+The format is shown as following:
 
 ```
 miRNA1_symbol<tab>refseq_id1 (Corresponding miRNA transcript id in RefSeq database for miRNA1_symbol)
 miRNA2_symbol<tab>refseq_id2
 ...
 miRNAn_symbol<tab>refseq_idn
+```
+### Configuration file (config.txt)
+The configuration file is formatted as follow:
+
+```
+# setting output dir
+OUTDIR  ./
+
+# setting output result prefix
+PREFIX  mESCs
+
+# setting species information (human or mouse)
+SPE     mouse
+
+# genome version
+VERSION mm9
+
+# dbname for this analysis, you should replace $DBDIR
+DB      ../data/mm9
+
+# time serise transcriptome profiles(multiple datasets, place the major at first, at least 3 datasets)
+EXPR    ./test_data/GeneExpressionProfiles/gene.expr.lst
+
+# the expression profile column corresponsing to the cell stage that you want
+# to prediction long nocoding RNA
+EXPRCUTOFF      0.5
+PCCCUTOFF       0.95
+
+# TF binding peaks from TF chipseq (multiple datasets, at least the key tfs)
+CHIP    ./test_data/TfBindingProfiles/tf.chipseq.lst
+PROMTER 10000,5000
+
+# Ago2 binding site from CLIP-seq (1 dataset)
+CLIP    ./test_data/MirnaBindingProfiles/miRNA.binding.potential.bed
+EXTEND  100
+
+# express miRNA list, must be office gene symbol and corresponding transcript
+# ID (with NR_ prefix)
+MIRLIST ./test_data/MirRNA_expr_refseq.lst
 ```
 
 ## Output files
@@ -240,7 +255,7 @@ firefox index.html # or open in firefox browser
 
 ### Co-expression network
 
-This plain text file contain co-expression network information by co-expression analysis of expression profile in multiple stages.
+This plain text file contains co-expression network information by co-expression analysis of expression profile in multiple stages.
 
 ```
 01CoExprNetwork/prefix.CoExpr.int
@@ -255,7 +270,7 @@ gene1<tab>gene2<tab>interaction_type<tab>score<tab>evidence
 
 ### TF regulatory network
 
-This plain text file contain TF regulatory network information by multiple TF binding profiles analysis.
+This plain text file contains TF regulatory network information by analyzing multiple TF binding profiles.
 
 ```
 02TfNetwork/TfNetwork.int
@@ -265,7 +280,8 @@ The format is the same as Co-expression network.
 
 ### MiRNA-gene regulatory network
 
-This plain text file contain microRNA-gene interactions by analysis Ago2 CLIP binding profile.
+This plain text file contains microRNA-gene interactions by analyzing Ago2 CLIP binding profile.
+
 ```
 03MirnaNetwork/prefix.MirTargetGeneLevel.txt
 ```
@@ -283,7 +299,7 @@ The format is the sample as Co-expression network.
 
 ### Predicted functional lncRNAs and their annotation
 
-Predicted functional lncRNAs and corresponding FIS. 
+Predicted functional lncRNAs and the corresponding FIS (Functional Information Score).
 
 ```
 05FunctionalityPrediction/functional.lncrna.lst
