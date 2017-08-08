@@ -10,7 +10,7 @@ git clone https://github.com/zhoujj2013/lncfuntk.git
 
 ### Dependencies
 
-lncFunTK written by [PERL](https://www.perl.org/) and [python](https://www.python.org/). It requires python 2.7 and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed through [pip](https://pypi.python.org/pypi/pip).
+lncFunTK written by [PERL](https://www.perl.org/) and [python](https://www.python.org/). It requires python 2.7, Perl5 and several python packages: matplotlib, networkx, numpy, scikit-learn, scipy, statsmodels etc. These python packages can be installed through [pip](https://pypi.python.org/pypi/pip).
 
 If you don't have pip, please download get-pip.py from https://bootstrap.pypa.io/get-pip.py and install pip module with [instructions](https://pip.pypa.io/en/stable/installing/):
 
@@ -19,7 +19,7 @@ wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 ```
 
-Install python packages one by one using pip module:
+Install python packages using pip module:
 
 ```
 cd lncfuntk
@@ -63,7 +63,7 @@ wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz
 tar xzvf mm9.tar.gz
 ```
 
-### Add denovo assembled lncRNAs to supporting dataset
+### Add newly assembled lncRNAs to supporting dataset
 
 After you download supporting dataset from our server and untar it, you can add newly assembled lncRNAs to investigate their functionality.
 
@@ -75,7 +75,7 @@ perl ../bin/BuildDb/BuildDb.pl mm9 ./ novel.lncRNA.gtf newdb >mm9.log 2>mm9.err
 
 Note: "novel.lncRNA.gtf" represents newly assembled lncRNA in [gtf](http://www.ensembl.org/info/website/upload/gff.html) format. "newdb" represents the name of supporting datasets with newly assembled lncRNAs added.
 
-### Create the latest supporting data
+### Create the latest supporting datasets
 
 We will update supporting datasets in our server every 3 months. If you want to download the latest supporting dataset, you can build it by yourself with BuildDB module in lncFunTK package.
 
@@ -94,7 +94,7 @@ Once you installed the lncFunTK package and obtained the supporting datasets, yo
 
 ```
 cd demo
-
+# create makefile
 perl ../run_lncfuntk.pl config.txt
 # then make the file
 make
@@ -104,7 +104,7 @@ make
 firefox ./07Report/index.html
 ```
 
-## Run lncFunTK analysis on your data
+## Run lncFunTK analysis on your own data
 
 To run lncFunTK analysis on your data, you need to prepare input dataset as we described in [Input files section](#input-files), then run lncFunTK as we described in [run demo section](#run-demo). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please refer to [Output files section](#output-files).
 
@@ -191,7 +191,7 @@ chr1  2834 2890 mESCs_002
 ...
 ```
 
-### Express miRNA list (MirRNA_expr_refseq.lst)
+### Expressed miRNA list (MirRNA_expr_refseq.lst)
 
 Contain the expressed microRNAs.
 The format is shown as following:
@@ -299,7 +299,7 @@ The format is the sample as Co-expression network.
 
 ### Predicted functional lncRNAs and their annotation
 
-Predicted functional lncRNAs and the corresponding FIS (Functional Information Score).
+Predicted functional lncRNAs and the corresponding FIS (Functional Information Score):
 
 ```
 05FunctionalityPrediction/functional.lncrna.lst
@@ -315,7 +315,7 @@ lncRNA_id2<tab>FIS2
 lncRNA_idN<tab>FISN
 ```
 
-GO annotation result for each predicted functional lncRNAs.
+GO annotation result for each predicted functional lncRNAs:
 ```
 07Report/FunctionalLncRNA.txt
 ```
