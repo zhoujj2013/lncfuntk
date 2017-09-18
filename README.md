@@ -89,7 +89,7 @@ perl ../bin/BuildDb/BuildDb.pl mm9 ./ > mm9.log
 ```
 ## Training optimal weight values for FIS calculation
 
-We designed Training.pl utility script for the user to obtain optimal weight values for FIS calculation by learning from a user provided training dataset (i.e., a set of func-tional lncRNAs and nonfunctional lncRNAs) ([Zhou et al., 2017](https://academic.oup.com/nar/article/45/12/e108/3101749/LncFunNet-an-integrated-computational-framework)), if the user thinks that the default weight matrix is not suitable for their system. 
+We designed Training.pl utility script for the user to obtain optimal weight values for FIS calculation by learning from a user provided training dataset (i.e., a set of func-tional lncRNAs and nonfunctional lncRNAs), if the user thinks that the default weight matrix is not suitable for their system. 
 
 You should prepared 3 files for training:
 
