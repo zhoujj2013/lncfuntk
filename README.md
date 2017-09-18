@@ -346,3 +346,7 @@ The format:
 ```
 id1<tab>FIS1<tab>GoTermId<tab>GO DESC<tab>pvalue<tab>adjust-pvalue<tab>neighbor genes
 ```
+
+## Please cite
+
+1. Zhou J, Zhang S, Wang H, et al. LncFunNet: an integrated computational framework for identification of functional long noncoding RNAs in mouse skeletal muscle cells[J]. Nucleic Acids Research, 2017. PMID: 28379566
