@@ -103,7 +103,7 @@ Then, train the optimal parameters for lncFunNet as follow:
 perl $lncFunTK_install_dir/bin/Training/Training.pl XXXX.Neighbor.stat postive.lst negative.lst
 
 # result files:
-# LR.result
+# LR.weight.value.lst
 # LR.png
 ```
 
