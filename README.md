@@ -93,11 +93,11 @@ We designed Training.pl utility script for the user to obtain optimal weight val
 
 You should prepared 3 files for training:
 
-1. a functional lncRNA list as positive dataset;
-2. a nonfunctional lncRNA list (with expression FPKM > 0.05) as negative dataset;
-3. Neighbor count for each lncRNAs within the network constructed;
+1. a list of functional lncRNAs as positive dataset;
+2. a list of nonfunctional lncRNAs (with expression FPKM > 0.05) as negative dataset;
+3. Neighbor counts for each lncRNA within the integrative regulatory network;
 
-Then, training the optimal parameters for lncFunNet as follow:
+Then, train the optimal parameters for lncFunNet as follow:
 
 ```
 perl $lncFunTK_install_dir/bin/Training/Training.pl XXXX.Neighbor.stat postive.lst negative.lst
