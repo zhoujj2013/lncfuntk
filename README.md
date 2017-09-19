@@ -100,6 +100,7 @@ You should prepared 3 files for training:
 Then, train the optimal parameters for lncFunNet as follow:
 
 ```
+cd $lncFunTK_install_dir/demo/training/
 perl $lncFunTK_install_dir/bin/Training/Training.pl XXXX.Neighbor.stat postive.lst negative.lst
 
 # result files:
