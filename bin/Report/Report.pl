@@ -37,7 +37,7 @@ $conf{OUTDIR} = $outdir;
 
 # The input file information
 open OUT,">","./input.json" || die $!;
-print OUT encode_json \%conf;
+print OUT JSON->new->pretty->encode(\%conf);
 close OUT;
 
 # Functional lncRNA list Top 10
@@ -67,7 +67,7 @@ close IN;
 
 
 open OUT,">","./lncrna.json" || die $!;
-print OUT encode_json \%lncrna;
+print OUT JSON->new->pretty->encode(\%lncrna);
 close OUT;
 
 # Functional lncRNA annotation result(population)
@@ -92,11 +92,12 @@ for(my $j = scalar(@sorted_go) - 1; $j > 0;$j--){
 
 # output barchart data
 open OUT,">","./gotop10.json" || die $!;
-print OUT encode_json \%goTop10;
+print OUT JSON->new->pretty->encode(\%goTop10);
 close OUT; 
 
 # Integrate regulatory network demo
 `cp ../04NetworkConstruction/04NetworkStat/$conf{PREFIX}.int.txt GeneRegulatoryNetwork.interaction.txt`;
+`cp ../04NetworkConstruction/04NetworkStat/$conf{PREFIX}.node.degree.txt $conf{PREFIX}.Node.Type.Degree.txt`;
 
 # a program to get lncRNA subnetwork
 # cp gene type file to get type information
@@ -114,12 +115,16 @@ open IN,"./GeneRegulatoryNetwork.interaction.txt" || die $!;
 while(<IN>){
 	chomp;
 	my @t = split /\t/;
-	if(exists $top5{$t[0]} or exists $top5{$t[1]}){
-		if($type{$t[0]} ne "pcg"){
-			$nodes{$t[0]} = 1;
-		}
-		if($type{$t[1]} ne "pcg"){
+	if(exists $top5{$t[0]}){
+		$nodes{$t[0]} = 1;
+		if($type{$t[1]} ne "pcg" and $type{$t[1]} ne "lncRNA"){
 			$nodes{$t[1]} = 1;
+		}
+	}
+	if(exists $top5{$t[1]}){
+		$nodes{$t[1]} = 1;
+		if($type{$t[0]} ne "pcg"  and $type{$t[0]} ne "lncRNA"){
+			$nodes{$t[0]} = 1;
 		}
 	}
 }
@@ -132,11 +137,13 @@ foreach my $n (keys %nodes){
 close OUT;
 
 #print "python $Bin/GetSubnetwork.py ../04NetworkConstruction/04NetworkStat/$conf{PREFIX}.network.pickle ./top5_target_node.lst $conf{PREFIX}\n";
-`python $Bin/GetSubnetwork.py ../04NetworkConstruction/04NetworkStat/$conf{PREFIX}.network.pickle ./top5_target_node.lst $conf{PREFIX}`;
+#`python $Bin/GetSubnetwork.py ../04NetworkConstruction/04NetworkStat/$conf{PREFIX}.network.pickle ./top5_target_node.lst $conf{PREFIX}`;
 #print "python $Bin/ToJson.py $conf{PREFIX}.int.txt $conf{PREFIX}.node.degree.txt $conf{PREFIX}\n";
-`python $Bin/ToJson.py $conf{PREFIX}.int.txt $conf{PREFIX}.node.degree.txt $conf{PREFIX}`;
+#`python $Bin/ToJson.py $conf{PREFIX}.int.txt $conf{PREFIX}.node.degree.txt $conf{PREFIX}`;
 #print "python $Bin/CreateD3Html.py $conf{PREFIX}.sn.json $conf{PREFIX}\n";
 #`python $Bin/CreateD3Html.py $conf{PREFIX}.sn.json $conf{PREFIX}`;
+
+`perl $Bin/GetSubNetworkJson.pl ./GeneRegulatoryNetwork.interaction.txt ./$conf{PREFIX}.Node.Type.Degree.txt ./top5_target_node.lst > sn.json`;
 
 `cp $Bin/index.html .`;
 `cp $Bin/nodeLegend.png .`;

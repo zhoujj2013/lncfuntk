@@ -3,8 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <title></title>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-	<link href="http://visjs.org/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+		<style>
+			.node {
+			  stroke: #fff;
+			  stroke-width: 1.5px;
+			}
+
+			.link {
+			  stroke: #999;
+			  stroke-opacity: .6;
+			}
+
+			.nodetext {
+					font-size: 12px ;
+					font-family: SimSun;
+					fill:#000000;
+			}
+
+			.linetext {
+					font-size: 12px ;
+					font-family: SimSun;
+					fill:#0000FF;
+					fill-opacity:0.0;
+			}
+
+		</style>
     </head>
 
     <body>
@@ -59,7 +83,7 @@
 	
 	<h3>Subnetwork for top 5 functional lncRNAs</h3>
 	<hr/>
-	<div id="subnw" style="width=auto; height: 800px; border:1px solid lightgray;"></div>
+	<div id="subnw" style="width=auto; height:auto;"></div>
 	<img src="./nodeLegend.png" alt="Node legend" style="width:109px;height:84px;">
 	<p>Download all interactions: <a href="./GeneRegulatoryNetwork.interaction.txt">here<a>.</p>
 	<hr/>
@@ -74,9 +98,8 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
-    	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script type="text/javascript" src="http://visjs.org/dist/vis.js"></script>
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>-->
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 	
     <script>
 	// for parameters, http://jquery.cuishifeng.cn/jQuery.getJSON.html
@@ -158,53 +181,80 @@
 	});
     </script>
 
-<script type="text/javascript">
-  // for subnetwork visulization
-  $.getJSON("./sn.json", function(test){
-	  //alert("I am an alert box!!");
-	  var nodes = new vis.DataSet();
-	  var edges = new vis.DataSet();
-	  
-	  //alert(test.nodes);	
-          
-	  nodes.add(test.nodes);
-	  edges.add(test.edges);
-	  
-	  //document.getElementById("demo").innerHTML=test.nodes.id;
-	  
-	  //document.getElementById("demo").innerHTML=test.nodes;
-	  // create a network
-	  var container = document.getElementById('subnw');
-	  var data = {
-		nodes: nodes,
-		edges: edges
-	  };
-	  var options = {
-		nodes: {
-          		shape: 'dot',
-          	},
-		layout:{
-			randomSeed: 0,
-		},
-		physics:{
-    			forceAtlas2Based: {
-            			gravitationalConstant: -26,
-            			centralGravity: 0.005,
-            			springLength: 230,
-            			springConstant: 0.18,
-            			avoidOverlap: 1.5
-        		},
-        		maxVelocity: 2,
-        		solver: 'forceAtlas2Based',
-        		timestep: 0.35,
-        		stabilization: {
-            			enabled: true,
-            			iterations: 100,
-            			updateInterval: 1
-        		}
-		}
-	  };
-	  var network = new vis.Network(container, data, options);
-  });
-</script>
+	<script>
+	// for subnetwork, 
+	var width = document.body.clientWidth,
+		height = 1024;
+
+	//var color = d3.scale.category20();
+	var color = ["blue","rgb(244,177,131)","rgb(146,208,80)","rgb(255,102,255)"];
+	
+	var force = d3.layout.force()
+		.charge(-600)
+		.linkDistance(300)
+		.size([width, height]);
+
+	var svg = d3.select("#subnw").append("svg")
+		.attr("width", width)
+		.attr("height", height)
+		.call(d3.behavior.zoom().on("zoom", function (){
+                        svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+                }))
+                .append("g");
+
+	d3.json("./sn.json", function(error, graph) {
+	  if (error) throw error;
+
+	  force
+		  .nodes(graph.nodes)
+		  .links(graph.links)
+		  .start();
+
+	  var link = svg.selectAll(".link")
+		  .data(graph.links)
+		  .enter().append("line")
+		  .attr("class", "link")
+		  //.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+		  .style("stroke-width", function(d) { return d.value; });
+		  
+	  var node = svg.selectAll(".node")
+		  .data(graph.nodes)
+		  .enter().append("circle")
+		  .attr("class", "node")
+		  //.attr("r", 10)
+		  .attr("r", function(d) {return (d.size/10)+3; })
+		  .style("fill", function(d) { return color[d.group]; })
+		  .call(force.drag);
+
+	  //node.append("title")
+	  //    .text(function(d) { return d.name; });
+		  
+	  var text_dx = 0;
+	  var text_dy = 0;
+				
+	  var nodes_text = svg.selectAll(".nodetext")
+									.data(graph.nodes)
+									.enter()
+									.append("text")
+									.attr("class","nodetext")
+									.attr("dx",text_dx)
+									.attr("dy",text_dy)
+									.text(function(d){
+										return d.name;
+									});
+									
+	  force.on("tick", function() {
+		link.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+
+		node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) { return d.y; });
+			
+		nodes_text.attr("x", function(d){ return d.x })
+			.attr("y", function(d){ return d.y });
+	  });
+	});
+	</script>
 </html>

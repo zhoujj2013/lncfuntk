@@ -24,7 +24,7 @@ exit(1);
 
 my $cfg = shift;
 
-my @spe = ('mm9','mm10','hg19','hg38');
+my @spe = ('hg38','hg19','mm9','mm10');
 
 open OUT,">","$cfg" || die $!;
 
@@ -54,7 +54,7 @@ foreach my $s (@spe){
 	}
 	# gbff, for refseq annotation
 	if($s eq "mm9" || $s eq "mm10"){
-		`wget -o mm.gbff.log -O mm.gbff.index ftp://ftp.ncbi.nlm.nih.gov/refseq/M_musculus/mRNA_Prot/`;
+		`wget -o mm.gbff.log -O mm.gbff.index --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 5 ftp://ftp.ncbi.nlm.nih.gov/refseq/M_musculus/mRNA_Prot/`;
 		sleep(2);
 		my $i = 1;
 		open IN,"./mm.gbff.index" || die $!;
@@ -69,10 +69,10 @@ foreach my $s (@spe){
 			}
 		}
 		close IN;
-		sleep(5);
+		sleep(15);
 		`rm mm.gbff.log mm.gbff.index`;
 	}elsif($s eq "hg19" || $s eq "hg38"){
-		`wget -o hs.gbff.log -O hs.gbff.index ftp://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/mRNA_Prot/`;
+		`wget -o hs.gbff.log -O hs.gbff.index --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 5 ftp://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/mRNA_Prot/`;
 		sleep(2);
 		my $i = 1;
 		open IN,"./hs.gbff.index" || die $!;
@@ -87,7 +87,7 @@ foreach my $s (@spe){
 			}
 		}
 		close IN;
-		sleep(5);
+		sleep(15);
 		`rm hs.gbff.log hs.gbff.index`;
 	}
 }

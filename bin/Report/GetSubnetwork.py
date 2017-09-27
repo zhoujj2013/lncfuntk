@@ -56,18 +56,22 @@ for item in SubDictSort:
 fout.close()
 
 
+
 fout1 = open('./' + prefix + '.int.txt','wb')
 for line in nx.generate_edgelist(sG, delimiter='\t', data=['type', 'direction', 'evidence']):
 	lc = line.split('\t')
-	link_value = ''
-	if re.search('TF_binding',lc[4]):
-		link_value = 2
-	elif re.search('within_transcript', lc[4]):
-		link_value = 2
-	elif re.search('ClipseqMiranda', lc[4]):
-		link_value = 2
+	if lc[0] in nodes and lc[1] in nodes:
+		link_value = ''
+		if re.search('TF_binding',lc[4]):
+			link_value = 2
+		elif re.search('within_transcript', lc[4]):
+			link_value = 2
+		elif re.search('ClipseqMiranda', lc[4]):
+			link_value = 2
+		else:
+			link_value = 1
+		
+		print >>fout1, "%s\t%s\t%d" % (lc[0], lc[1], link_value)
 	else:
-		link_value = 1
-	
-	print >>fout1, "%s\t%s\t%d" % (lc[0], lc[1], link_value)
+		continue
 fout1.close()

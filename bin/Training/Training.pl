@@ -16,7 +16,7 @@ sub usage {
         Training weight value for different node types.
         Author: zhoujj2013\@gmail.com 
         Created: Tue Apr 18 14:39:09 HKT 2017
-        Usage: perl $0 network.stat postive.lst negative.lst
+        Usage: perl $0 XXXX.Neighbor.stat postive.lst negative.lst
 
 USAGE
 print "$usage";
