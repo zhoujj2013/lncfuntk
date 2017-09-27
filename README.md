@@ -23,7 +23,7 @@ Install python packages using pip module:
 
 ```
 cd lncfuntk
-python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt --user 
+python -m  pip install -r  ./python.package.requirement.txt --user
 ```
 
 You can also run it in python virtual environment, if you don't have superuser privilege.
