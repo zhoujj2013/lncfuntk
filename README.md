@@ -126,6 +126,7 @@ make
 # you can check the report (index.html) in 07Report.
 firefox ./07Report/index.html
 ```
+LncFunTK have been tested in CentOS release 6.2, Debian 7.0 3.2.60-1+deb7u3 and Ubuntu.
 
 ## Run lncFunTK analysis on your own data
 
