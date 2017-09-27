@@ -136,7 +136,8 @@ if($result == 0){
 	# then make the file
 	make
 	# around 15 mins.
-	# you can check the report (index.html) in 07Report.
+	# you can check the report (index.html) in 07Report directory.
+	cd 07Report
 	firefox ./index.html
 CMD
 	print "$test_cmd";
