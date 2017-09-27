@@ -45,7 +45,8 @@ If everything is ready, run command as follow:
 
 ```
 cd ./lncfuntk
-perl install.pl (write a script for installation)
+perl INSTALL.pl
+# installation finished.
 ```
 
 ## Obtain supporting dataset
