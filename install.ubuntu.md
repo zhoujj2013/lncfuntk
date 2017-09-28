@@ -1,4 +1,4 @@
-# Dependencies installation in Ubuntu
+# Dependencies installation in Ubuntu 64bit
 
 Install dependencies through apt-get.
 
