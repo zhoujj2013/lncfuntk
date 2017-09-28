@@ -1,4 +1,4 @@
-# Dependencies installation in MacOS
+# Dependencies installation in MacOS (not work)
 
 Install dependencies through brew.
 
