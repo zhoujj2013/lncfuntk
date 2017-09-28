@@ -16,7 +16,7 @@ If you don't have pip, please download get-pip.py from https://bootstrap.pypa.io
 
 ```
 wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
+python get-pip.py --user
 ```
 
 Install python packages using pip module:
