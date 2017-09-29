@@ -275,7 +275,7 @@ You can visualize LncFunTK analysis result by:
 ```
 firefox index.html # or open in firefox browser
 ```
-[demo](http://137.189.133.71/zhoujj/lncfuntk/demo/07Report/)
+
 
 ### Co-expression network
 
