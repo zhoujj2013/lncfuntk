@@ -1,6 +1,6 @@
 # Dependencies installation in Ubuntu 64bit
 
-Install dependencies through apt-get.
+Install dependencies through apt-get:
 
 ```
 sudo apt-get install python-numpy python-scipy python-matplotlib 
