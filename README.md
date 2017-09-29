@@ -30,7 +30,7 @@ You can also run it in python virtual environment, if you don't have superuser p
 
 ```
 # install virtualenv
-pip install virtualenv
+pip install virtualenv --user
 
 cd my_project_folder
 virtualenv venv
@@ -39,6 +39,9 @@ source venv/bin/activate
 # $INSTALL_DIR represent the lncfuntk install directory.
 python -m  pip install -r  $INSTALL_DIR/python.package.requirement.txt
 ```
+
+If you want to install lncFunTK in Ubuntu, please see [install.ubuntu.md](https://github.com/zhoujj2013/lncfuntk/blob/master/install.ubuntu.md) for details.
+
 ### Installation
 
 If everything is ready, run command as follow:
@@ -126,7 +129,7 @@ make
 # you can check the report (index.html) in 07Report.
 firefox ./07Report/index.html
 ```
-LncFunTK have been tested in CentOS release 6.2, Debian 7.0 3.2.60-1+deb7u3 and ubuntu 16.04 LTS.
+LncFunTK have been tested in CentOS release 6.2, Debian 7.0 3.2.60-1+deb7u3 and ubuntu 16.04 LTS (Linux OS 64 bit).
 
 ## Run lncFunTK analysis on your own data
 
