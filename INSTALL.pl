@@ -109,7 +109,7 @@ if(-d "./data/mm9"){
 	print "Download supporting dataset for mouse(mm9): start.\n";
 	print "Please have a cup of coffee, it will take some time.\n";
 	chdir "data/";
-	`wget -o mm9.dl.log http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz`;
+	`wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz && touch mm9.dl.log`;
 	`tar xzf mm9.tar.gz`;
 	`rm mm9.dl.log mm9.tar.gz`;
 	chdir "..";
