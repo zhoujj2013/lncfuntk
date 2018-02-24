@@ -36,7 +36,7 @@ my ($dbdir, $interaction, $nodelst, $func_lncrna) = @ARGV;
 
 # Go enrichment analysis
 #print "python $Bin/GoEnrichment.py ./Functional.lncRNA.information.txt ./GO.P.gene2go ./GO.P.go2gene\n";
-`python $Bin/GoEnrichment.py ./Functional.lncRNA.information.txt ./GO.P.gene2go ./GO.P.go2gene`;
+`python $Bin/GoEnrichment.py ./Functional.lncRNA.information.txt ./GO.P.gene2go ./GO.P.go2gene 2>./GoEnrichment.log`;
 
 # combine GO enrichment and iscore result
 `perl $Bin/generateResult.pl $func_lncrna ./lncFunNet.GO.enrich.txt > ./lncFunNet.GO.enrich.result.txt`;

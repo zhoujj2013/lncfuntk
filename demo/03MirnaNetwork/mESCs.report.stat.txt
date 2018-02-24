@@ -1,0 +1,20 @@
+trans level
+	trans num
+protein coding gene	111
+pseudogene	1
+lncRNA	43
+	trans interaction
+protein coding gene	2499
+pseudogene	10
+lncRNA	1928
+
+
+gene level
+	gene num
+protein coding gene	64
+pseudogene	1
+lncRNA	31
+	gene interaction
+protein coding gene	1081
+pseudogene	10
+lncRNA	1185

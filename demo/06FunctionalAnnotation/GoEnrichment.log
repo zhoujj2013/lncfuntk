@@ -1,0 +1,2 @@
+/lustre/home/zhoujj/.local/lib/python2.7/site-packages/matplotlib/colors.py:298: MatplotlibDeprecationWarning: The is_string_like function was deprecated in version 2.1.
+  if cbook.is_string_like(arg):
