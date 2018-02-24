@@ -1,7 +1,0 @@
-Directed Graph: False
-Name: 
-Type: Graph
-Number of nodes: 1119
-Number of edges: 31325
-Average degree:  55.9875
-Graph density: 0.0500782547668

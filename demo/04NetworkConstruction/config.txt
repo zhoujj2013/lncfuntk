@@ -1,8 +1,0 @@
-InferredInt=/lustre/zhoujj/project/57.lncfuntk/lncfuntk/demo/01CoExprNetwork/mESCs.CoExpr.int
-DirectedInt=/lustre/zhoujj/project/57.lncfuntk/lncfuntk/demo/02TfNetwork/TfNetwork.int
-DirectedInt=/lustre/zhoujj/project/57.lncfuntk/lncfuntk/demo/03MirnaNetwork/mESCs.MirTargetGeneLevel.txt
-KeyTfList=/lustre/zhoujj/project/57.lncfuntk/lncfuntk/demo/test_data/TfBindingProfiles/tf.chipseq.lst
-MirnaList=/lustre/zhoujj/project/57.lncfuntk/lncfuntk/demo/test_data/MirRNA_expr_refseq.lst
-OtherGeneList=/lustre/zhoujj/project/57.lncfuntk/lncfuntk/demo/01CoExprNetwork/mESCs.remain.lst
-Prefix=mESCs
-DbDir=/lustre/zhoujj/project/57.lncfuntk/lncfuntk/data/mm9
