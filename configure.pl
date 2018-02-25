@@ -29,7 +29,7 @@ GetOptions(
 	"help"=>\$help
 );
 
-if((@ARGV <= 0 && !$install && !$db)|| $help){
+if((!$install && !$db) || (@ARGV <= 0 && !$install && !$db)|| $help){
 	&usage;
 }
 
