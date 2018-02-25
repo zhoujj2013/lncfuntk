@@ -3,7 +3,6 @@
 Install dependencies through apt-get:
 
 ```
-sudo apt-get install python-pip
 sudo apt-get install python-numpy python-scipy python-matplotlib 
 sudo apt-get install python-networkx python-scikits-learn python-statsmodels
 ```
