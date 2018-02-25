@@ -15,14 +15,11 @@ sub usage {
 
         Get coexpression network from time-serise expression profile.
         Author: zhoujj2013\@gmail.com  Wed Apr 12 15:59:18 HKT 2017
-        Usage: $0 expresion_profile.lst rpkm_cutoff cal_corr_method<pearsonr|spearmanr> corr_cutoff prefix
+        Usage: $0 expresion_profile.mat rpkm_cutoff cal_corr_method<pearsonr|spearmanr> corr_cutoff prefix
 	
-        expresion_profile.lst format:
-        sampleid<tab>expression_profile.lst
-
-	expression_profile.lst format:
-        geneid1<tab>rpkm1
-	geneid2<tab>rpkm2
+        expresion_profile.mat format:
+        geneid1<tab>s1_rpkm1<tab>s2_rpkm2
+	geneid2<tab>s1_rpkm2<tab>s2_rpkm2
 
 USAGE
 print "$usage";

@@ -10,14 +10,16 @@ SPE	mouse
 # genome version
 VERSION	mm9
 
-# dbname for this analysis, you should replace $DBDIR
-DB	../data/mm9
+# Long noncoding RNA coordinates in gtf format. If set the parameter as none, expressed lncRNAs in RefSeq will be used.
+LNCRNA	./test_data/novel.final.gtf
 
-# time serise transcriptome profiles(multiple datasets, place the major at first, at least 3 datasets)
-EXPR	./test_data/GeneExpressionProfiles/gene.expr.lst
+# express miRNA list, must be offical gene symbol and it's corresponding transcript ID (with NR_ prefix).
+MIRLIST	./test_data/MirRNA_expr_refseq.lst
 
-# the expression profile column corresponsing to the cell stage that you want
-# to prediction long nocoding RNA
+# Gene expression matrix time serise transcriptome profiles (multiple datasets, place the stage your focus on at the first column, at least 3 datasets).
+EXPR	./test_data/GeneExpressionProfiles/gene.expr.mat
+
+# The expression profile column corresponsing to the cell stage that you want to prediction long nocoding RNA
 EXPRCUTOFF	0.5
 PCCCUTOFF	0.95
 
@@ -28,7 +30,3 @@ PROMTER	10000,5000
 # Ago2 binding site from CLIP-seq (1 dataset)
 CLIP	./test_data/MirnaBindingProfiles/miRNA.binding.potential.bed
 EXTEND	100
-
-# express miRNA list, must be office gene symbol and corresponding transcript
-# ID (with NR_ prefix)
-MIRLIST	./test_data/MirRNA_expr_refseq.lst

@@ -13,9 +13,9 @@ use Cwd qw(abs_path);
 sub usage {
         my $usage = << "USAGE";
 
-        This script design for express filtering in specific column.
-        Author: zhoujj2013\@gmail.com 
-        Usage: $0 cutoff xx.expr
+        This script design for filtering low expressed genes in the first column and make fpkm < 0.01 to 0.01.
+        Author: zhoujj2013\@gmail.com
+        Usage: $0 cutoff xx.expr.mat
 
 USAGE
 print "$usage";
@@ -25,57 +25,24 @@ exit(1);
 my $cutoff = shift;
 my $expr_f = shift;
 
-my @expr;
+my %geneid;
 open IN,"$expr_f" || die $!;
 while(<IN>){
 	chomp;
 	my @t = split /\t/;
-	push @expr,\@t;
-}
-close IN;
-
-my $primary_id = $expr[0][0];
-#print $primary_id,"\n";
-my $primary_f = $expr[0][1];
-#print $primary_f,"\n";
-# initialized
-#my @init;
-#foreach(@expr){
-#	push @init,0.01;	
-#}
-
-my %geneid;
-open IN,"$primary_f" || die $!;
-while(<IN>){
-	chomp;
-	my @t = split /\t/;
-	if($t[1] >= $cutoff ){
-		my @init;
-		foreach(@expr){
-        		push @init,0.01;
+	my $id = shift @t;
+	my $primary_sample=$t[0];
+	if($primary_sample >= $cutoff){
+		foreach(my $i=0; $i < scalar(@t); $i++){
+			if($t[$i] < 0.01){
+				$t[$i] = 0.01;
+			}
 		}
-		$geneid{$t[0]} = \@init;
-        }
-	
-}
-close IN;
-
-my $i = 0;
-my @header = ("geneid");
-foreach my $fstr (@expr){
-	my ($id,$f) = @$fstr;
-	push @header,$id;
-	open IN,"$f" || die $!;
-	while(<IN>){
-		chomp;
-		my @t = split /\t/;
-		if(exists $geneid{$t[0]} && $t[1] > 0.01){
-			$geneid{$t[0]}[$i] = $t[1];
-		}
+		$geneid{$id} = \@t;
 	}
-	close IN;
-	$i++;
 }
+close IN;
+
 
 #print Dumper(\%geneid);
 #print join "\t",@header;

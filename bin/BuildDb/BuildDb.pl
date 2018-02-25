@@ -28,7 +28,7 @@ print "$usage";
 exit(1);
 };
 
-my $software_version = "lncnet";
+my $software_version = "lncfuntk";
 
 my $datestring = localtime();
 print STDERR "$datestring\n";
@@ -60,17 +60,18 @@ if(scalar(@ARGV) == 2){
 	$gtf_f = abs_path($gtf_f);
 	my $new_db_name = shift;
 	
-	print STDERR "Collect http/ftp addresses for each dataset: start\n";
-	`perl $Bin/get_config_setting.pl $outdir/$spe.config.txt`;
-	print STDERR "$outdir/$spe.config.txt\n";
-	print STDERR "Collect http/ftp addresses for each dataset: done\n";
-	
-	print STDERR "Prepare dataset for $software_version analysis ($spe with novo lncRNAos): start\n";
+	print STDERR "Prepare dataset for $software_version analysis ($spe with novo lncRNAs): start\n";
 	if(-d "$outdir/$new_db_name"){
 		die "ERROR: $new_db_name exists. Please enter a new db name or remove the existing database $outdir/$new_db_name.\n";
 	}
 	# check whether the reference db have been build up.
 	unless(-d "$outdir/$spe"){
+		print STDERR "Dataset for $spe is not exists. Preparing database for $spe.\n";
+		print STDERR "Collect http/ftp addresses for each dataset: start\n";
+		`perl $Bin/get_config_setting.pl $outdir/$spe.config.txt`;
+		print STDERR "$outdir/$spe.config.txt\n";
+		print STDERR "Collect http/ftp addresses for each dataset: done\n";
+	
 		`perl $Bin/build_db.pl $spe $outdir`;
 	}
 

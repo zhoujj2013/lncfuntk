@@ -35,12 +35,40 @@ my %conf;
 my $all='all: ';
 my $mk;
 
-my $prefix = $conf{PREFIX};
+my $program_dir = abs_path($Bin);
 
-my $db = abs_path($conf{DB});
+my $out = abs_path($conf{OUTDIR});
+
+my $prefix = $conf{PREFIX};
 
 my $spe = $conf{SPE};
 my $ver = $conf{VERSION};
+
+# Prepare db for lncfuntk analysis.
+my $db = "";
+if($conf{LNCRNA} eq "none"){
+	$db = "$program_dir/data/$ver";
+	unless(-d $db){
+		die "####### Error #######\nYou should build supporting dataset for $ver before you run LncFunTK.\ncd <lncfuntk_install_dir>\nperl ./configure -db $ver\n#####################\n";
+	}
+}elsif(exists $conf{LNCRNA}){
+	$db = "$program_dir/data/$ver";
+	unless(-d $db){
+		die "####### Error #######\nYou should build supporting dataset for $ver before you run LncFunTK.\ncd <lncfuntk_install_dir>\nperl ./configure -db $ver\n#####################\n";
+	}
+	my $gtf = abs_path($conf{LNCRNA});
+	mkdir "$out/00PrepareDb" unless(-d "$out/00PrepareDb");
+	chdir "$out/00PrepareDb";
+	`ln -s $program_dir/data/$ver ./` unless(-l $ver);
+	`rm -r ./new_db` if(-d "./new_db");
+	`perl $Bin/bin/BuildDb/BuildDb.pl $ver ./ $gtf ./new_db`;
+	chdir "$out";
+	$db = "$out/00PrepareDb/new_db";
+}
+
+warn "DB\t$db\n";
+
+my $mir_f = abs_path($conf{MIRLIST});
 
 my $expr_f = abs_path($conf{EXPR});
 my $expr_cutoff = $conf{EXPRCUTOFF};
@@ -52,9 +80,6 @@ my ($up,$down) = split /,/,$promoter;
 
 my $clip_f = abs_path($conf{CLIP});
 my $ago2_extend = $conf{EXTEND};
-
-my $mir_f = abs_path($conf{MIRLIST});
-my $out = abs_path($conf{OUTDIR});
 
 my $c_outdir;
 # print out the parameters
