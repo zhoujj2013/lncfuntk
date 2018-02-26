@@ -75,7 +75,7 @@ my $expr_cutoff = $conf{EXPRCUTOFF};
 my $pcc_cutoff = $conf{PCCCUTOFF};
 
 my $chip_f = abs_path($conf{CHIP});
-my $promoter = $conf{PROMTER};
+my $promoter = $conf{PROMOTER};
 my ($up,$down) = split /,/,$promoter;
 
 my $clip_f = abs_path($conf{CLIP});
