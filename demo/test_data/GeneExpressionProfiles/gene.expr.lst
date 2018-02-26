@@ -1,4 +1,4 @@
-ES	/lustre/zhoujj/project/57.lncfuntk/test1/lncfuntk/demo/test_data/GeneExpressionProfiles/mESCs.expr
-EM	/lustre/zhoujj/project/57.lncfuntk/test1/lncfuntk/demo/test_data/GeneExpressionProfiles/EM.expr
-CM	/lustre/zhoujj/project/57.lncfuntk/test1/lncfuntk/demo/test_data/GeneExpressionProfiles/CM.expr
-CP	/lustre/zhoujj/project/57.lncfuntk/test1/lncfuntk/demo/test_data/GeneExpressionProfiles/CP.expr
+ES	/lustre/zhoujj/webapp/lncfuntk/demo/test_data/GeneExpressionProfiles/mESCs.expr
+EM	/lustre/zhoujj/webapp/lncfuntk/demo/test_data/GeneExpressionProfiles/EM.expr
+CM	/lustre/zhoujj/webapp/lncfuntk/demo/test_data/GeneExpressionProfiles/CM.expr
+CP	/lustre/zhoujj/webapp/lncfuntk/demo/test_data/GeneExpressionProfiles/CP.expr
