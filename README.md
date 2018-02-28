@@ -57,6 +57,10 @@ LncFunTK have been tested in CentOS release 6.2, Debian 7.0 3.2.60-1+deb7u3 and 
 
 To run lncFunTK analysis on your data, please refer to this [walkthrough example](https://github.com/zhoujj2013/lncfuntk/blob/master/walkthroughexample.md).
 
+## lncFunTK Runtime
+
+For lncFunTK with RNA-seq (10 samples), TF Chip-seq (10 samples), CLIP-seq (1 sample) as input, the analysis will involve ~15000 genes and speed ~3 hours with a computer node (Intel(R) Xeon(R) CPU E5-2697A v4 @ 2.60GHz, 32G RAM). 
+
 ## lncFunTK utility
 
 ### Training optimal weight values for FIS calculation
