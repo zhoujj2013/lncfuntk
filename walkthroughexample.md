@@ -2,6 +2,14 @@
 
 To run lncFunTK analysis on your data, you need to prepare input dataset as we described in [Input files section](#input-files), then run lncFunTK as we described in [run demo section](#run-demo). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please refer to [Output files section](#output-files).
 
+## 1. Preparation input files
+
+### 1.1 Gene expression profiles (GeneExpressionProfiles/gene.expr.lst)
+
+Gene expression of each stage can be quantified by RNA-seq data, then combine expression profiles from different stages into a matrix in plain text (i.e. [gene.expr.mat](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/GeneExpressionProfiles/gene.expr.mat)).
+
+Each column represent gene expression profile from one stage.
+
 ## Input files
 
 You need to provide the input files in configure file:
