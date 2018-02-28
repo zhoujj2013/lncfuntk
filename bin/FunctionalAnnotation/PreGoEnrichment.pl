@@ -143,7 +143,10 @@ my $go_min = 10000;
 #my $mirna_num = 0;
 #my $go_num = 0;
 
+#print Dumper(\%phub);
+
 foreach my $g (keys %phub){
+	
 	$lncrna_sum += $phub{$g}{'lncrna'} if(exists $phub{$g}{'lncrna'});
 	$lncrna_max = $phub{$g}{'lncrna'} if(exists $phub{$g}{'lncrna'} && $phub{$g}{'lncrna'} > $lncrna_max);
 	$lncrna_min = $phub{$g}{'lncrna'} if(exists $phub{$g}{'lncrna'} && $phub{$g}{'lncrna'} < $lncrna_min);

@@ -13,11 +13,11 @@
 	<h2>Parameters</h2>
 	<hr/>
 	<ul>
-		<li id='outdir' style="font-weight: bold;"></li>
+		<!--<li id='outdir' style="font-weight: bold;"></li>-->
 		<li id='prefix' style="font-weight: bold;"></li>
 		<li id='spe' style="font-weight: bold;"></li>
 		<li id='version' style="font-weight: bold;"></li>
-		<li id='refdb' style="font-weight: bold;"></li>
+		<!--<li id='refdb' style="font-weight: bold;"></li>-->
 		<li id='expr'></li>
 		<li id='chip'></li>
 		<li id='clip'></li>
@@ -82,11 +82,11 @@
 	// for parameters, http://jquery.cuishifeng.cn/jQuery.getJSON.html
 	$.getJSON("./input.json", function(jdata){
 		$("h1").html("LncFunTK analysis result for " + jdata.PREFIX);
-		$("#outdir").html("Output directory: " + jdata.OUTDIR);
+		//$("#outdir").html("Output directory: " + jdata.OUTDIR);
 		$("#prefix").html("Output prefix: " + jdata.PREFIX);
 		$("#spe").html("Species: " + jdata.SPE);
 		$("#version").html("Genome version: " + jdata.VERSION);
-		$("#refdb").html("Reference database: " + jdata.DB);
+		//$("#refdb").html("Reference database: " + jdata.DB);
 		$("#expr").html("<p style=\"font-weight: bold;\">Expression profile settings: </p><p>Expression profile: " + jdata.EXPR + "</p><p>RPKM cutoff: " + jdata.EXPRCUTOFF + "</p><p>Pearson correlation cutoff: " + jdata.PCCCUTOFF + "</p>");
 		$("#chip").html("<p style=\"font-weight: bold;\">TFs binding profile settings: </p><p>TFs binding profile: " + jdata.CHIP + "</p><p>Promoter region relative to TSS(+/-): " + jdata.PROMTER + "</p>");
 		$("#clip").html("<p style=\"font-weight: bold;\">Ago2 protein binding profile settings: </p><p>Ago2 binding profile: " + jdata.CLIP	+ "</p><p>Extend length for binding region(+/-): " + jdata.EXTEND + "</p>");

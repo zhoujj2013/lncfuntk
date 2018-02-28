@@ -31,7 +31,7 @@ my ($dbdir, $interaction, $nodelst, $func_lncrna) = @ARGV;
 `python $Bin/PreGoAnnotation.py $nodelst $dbdir P`;
 
 # prepare information from network and GO database
-#print "perl $Bin/PreGoEnrichment.pl $interaction ./GO.P.gene2go $func_lncrna > ./Functional.lncRNA.information.txt\n";
+print "perl $Bin/PreGoEnrichment.pl $interaction ./GO.P.gene2go $nodelst $func_lncrna > ./Functional.lncRNA.information.txt 2> ./Functional.lncRNA.information.log\n";
 `perl $Bin/PreGoEnrichment.pl $interaction ./GO.P.gene2go $nodelst $func_lncrna > ./Functional.lncRNA.information.txt 2> ./Functional.lncRNA.information.log`;
 
 # Go enrichment analysis
