@@ -1,40 +1,38 @@
-# Run lncFunTK analysis on your own data
+# Run lncFunTK analysis on your own datasets
 
-To run lncFunTK analysis on your data, you need to prepare input dataset as we described in [Input files section](#1-input-files-preparation), then run lncFunTK as we described in [run section](#run-lncfuntk). Finally, you can check lncFunTK analysis result in 07Report directory. For more details about lncFunTK output, please refer to [Output files section](#4-explaination-of-result).
+To run lncFunTK analysis on your own datasets, you need to prepare input dataset as described in [Input files section](#1-input-files-preparation), then run lncFunTK as described in [run section](#run-lncfuntk). Finally, you can check lncFunTK analysis result in 07Report directory. For more details, please refer to [Output files section](#4-explaination-of-result).
 
-## 1. Input files preparation
+## 1. Input file preparation
 
-### 1.1 Gene expression profiles
+### 1.1 Gene expression matrix from RNA-seq
 
-Gene expression of each stage can be quantified by RNA-seq data, then combine expression profiles from different stages into a matrix in plain text (i.e. [gene.expr.mat](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/GeneExpressionProfiles/gene.expr.mat)).
+Gene expression level of each stage can be quantified by RNA-seq data, then combine expression profiles from different stages into a matrix in plain text (i.e. [gene.expr.mat](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/GeneExpressionProfiles/gene.expr.mat)).
 
-Each column represent gene expression profile from one stage.
+Each column represents a gene expression profile in one stage.
 
-### 1.2 TF binding profiles
+### 1.2 Transcription Factor (TF) binding peaks from ChIP-seq
 
-ChIP-seq can be aligned back to reference genome, then TF binding peaks can be called by MACS2. TFs binding profiles in [BED format](https://genome.ucsc.edu/FAQ/FAQformat.html#format1) can be used in lncFunTK analysis.
+TF ChIP-seq data is aligned to reference genome, then TF binding peaks is called by MACS2. TF binding profiles are in [BED format](https://genome.ucsc.edu/FAQ/FAQformat.html#format1) are used in lncFunTK analysis.
 
-Mutiple TFs binding profiles must arange into plain text file(the first column is TF gene symbol, the second column is the absolute path of the corresponding binding profile in BED format (i.e. tf.chipseq.lst (https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/TfBindingProfiles/tf.chipseq.lst)).
+TF binding profiles list must arange into plain text format (the first column is TF gene symbol, the second column is the absolute path of the corresponding TF binding profile in BED format (i.e. tf.chipseq.lst (https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/TfBindingProfiles/tf.chipseq.lst)).
 
+### 1.3 Ago2 binding peaks from CLIP-seq
 
-### 1.3 Mirna binding profiles
+Ago2 CLIP-seq data is aligned to reference genome by bowtie2, then Ago2 potential binding peaks is called by [piranha](http://smithlabresearch.org/software/piranha/) or [CIMS](https://zhanglab.c2b2.columbia.edu/index.php/CTK_Documentation) analysis. 
 
-Ago2 CLIP-seq data can aligned back to genome by bowtie2, then miRNA potential binding region be called by [piranha](http://smithlabresearch.org/software/piranha/) or [CIMS](https://zhanglab.c2b2.columbia.edu/index.php/CTK_Documentation) analysis. 
+Ago2 binding peaks in BED format is used as input file of lncFunTK (i.e. [miRNA.binding.potential.bed](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/MirnaBindingProfiles/miRNA.binding.potential.bed)). (Note: the fourth column should be a unique ID.)
 
-Potential miRNA binding sites in bed format used as input file of lncFunTK (i.e. [miRNA.binding.potential.bed](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/MirnaBindingProfiles/miRNA.binding.potential.bed)). (Note: the fourth column should be a unique ID.)
+### 1.4 Expressed microRNA list
 
+Expressed microRNA molecules is collected by literature searching or from small RNA sequencing data analysis. Expressed microRNAs list is in plain text format (the first column is miRNA offical gene symbol and the second column is unique id in RefSeq database (i.e. [MirRNA_expr_refseq.lst](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/MirRNA_expr_refseq.lst)).
 
-### 1.4 Expressed miRNA list
+### 1.5 Newly assembled long noncoding RNAs
 
-Expressed miRNA molecules must be collected by literature searching or from small RNA sequencing data analysis. Expressed microRNAs information must be in plain text format with the first column as miRNA offical gene symbol and the second column as id in RefSeq database (i.e. [MirRNA_expr_refseq.lst](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/MirRNA_expr_refseq.lst)).
-
-### 1.5 Newly assembled lncRNAs
-
-lncFunTK can predict, prioritize, and annotate newly assembled lncRNA functions if you use newly assembled lncRNAs coordinates in GTF format as input (i.e. [novel.final.gtf](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/novel.final.gtf)). If so, the expression level of newly assembled lncRNAs must included in the gene expression profiles.
+lncFunTK can predict, prioritize, and annotate newly assembled lncRNA functions if you provide newly assembled lncRNAs coordinates in GTF format as input (i.e. [novel.final.gtf](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/test_data/novel.final.gtf)). If so, the expression level of newly assembled lncRNAs must be included in the gene expression profiles.
 
 ## 2. Configure file preparation
 
-All aforementioned input files were aranged into a configure file and lncFunTK will read in input files base on configure file. Breifly,  each parameter should seperate into Key and value by tab delimiter, lines start with "#" as comment text, which will not effect in lncFunTK analysis. The configure file must formatted as (i.e. [config.txt](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/config.txt)):
+All aforementioned input files were aranged into a configure file and lncFunTK will read in input files base on configure file. Breifly,  each parameter should seperate into Key and value by tab delimiter, lines start with "#" as comment text, which will not effect in lncFunTK analysis. The configure file must formatted as follows (i.e. [config.txt](https://github.com/zhoujj2013/lncfuntk/blob/master/demo/config.txt)):
 
 ```
 # setting output dir
@@ -74,7 +72,7 @@ MIRLIST ./test_data/MirRNA_expr_refseq.lst
 
 ## 3. Run lncFunTK
 
-Once the input files and configure file, you can run lncFunTK as follow:
+If the input files and configure file are well prepared, you can run lncFunTK as follows:
 
 ```
 cd project_dir
@@ -87,7 +85,8 @@ make
 # you can check the report (index.html) in 07Report.
 firefox ./07Report/index.html
 ```
-LncFunTK have been tested in CentOS release 6.2, Debian 7.0 3.2.60-1+deb7u3 and ubuntu 16.04 LTS (Linux OS 64 bit).
+
+lncFunTK analysis result is placed in 07Report directory.
 
 ## 4. Explaination of result
 
@@ -102,7 +101,7 @@ firefox index.html # or open in firefox browser
 
 ### 4.2 Co-expression network
 
-This plain text file contains co-expression network information by co-expression analysis of expression profile in multiple stages.
+This plain text file contains co-expression network information by co-expression analysis of expression profiles.
 
 ```
 01CoExprNetwork/prefix.CoExpr.int
@@ -123,9 +122,9 @@ This plain text file contains TF regulatory network information by analyzing mul
 02TfNetwork/TfNetwork.int
 ```
 
-The format is the same as Co-expression network.
+The format is the same as Co-expression network mentioned in 4.2.
 
-### 4.4 MiRNA-gene regulatory network
+### 4.4 MicroRNA-gene regulatory network
 
 This plain text file contains microRNA-gene interactions by analyzing Ago2 CLIP binding profile.
 
@@ -137,7 +136,8 @@ The format is the same as Co-expression network.
 
 ### 4.5 Integrative gene regulatory network
 
-Contain all the interactions between 2 genes.
+Contain the integrative gene regulatory network, which created by lncFunTK.
+
 ```
 07Report/GeneRegulatoryNetwork.interaction.txt
 ```
