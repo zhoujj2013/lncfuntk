@@ -12,6 +12,7 @@ VERSION	mm9
 
 # Long noncoding RNA coordinates in gtf format. If set the parameter as none, expressed lncRNAs in RefSeq will be used.
 #LNCRNA	./test_data/novel.final.gtf
+LNCRNA	none
 
 # express miRNA list, must be offical gene symbol and it's corresponding transcript ID (with NR_ prefix).
 MIRLIST	./test_data/MirRNA_expr_refseq.lst
