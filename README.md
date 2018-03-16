@@ -22,8 +22,6 @@ git clone https://github.com/zhoujj2013/lncfuntk.git --depth 1
 
 ### Installation
 
-NOTE: Even though INSTALL.pl can install the required packages automatically, we still recommend you to prepare all required packages as described [here](https://github.com/zhoujj2013/lncfuntk/blob/master/prepare_packages.md) before install lncFunTK.
-
 We recommend run lncFunTK under an isolated python environment, you should first make a python virtual environment by [virtualenv](https://virtualenv.pypa.io/en/stable/):
 
 ```
