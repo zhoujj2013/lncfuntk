@@ -206,7 +206,7 @@ LOGO
 	}
 	
 	
-	if(exists $mlist{'numpy'} && $mlist{'numpy'} eq "1.11.2"){
+	if(exists $mlist{'numpy'}){
 		print "numpy==$mlist{'numpy'} is installed.\n";
 	}else{
 		$result = 0;
@@ -218,7 +218,7 @@ LOGO
 		$result = 0;
 	}
 	
-	if(exists $mlist{'scipy'} && $mlist{'scipy'} eq "0.18.1"){
+	if(exists $mlist{'scipy'}){
 		print "scipy==$mlist{'scipy'} is installed.\n";
 	}else{
 		$result = 0;
