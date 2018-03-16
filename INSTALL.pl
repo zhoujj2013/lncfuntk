@@ -67,6 +67,14 @@ LOGO
 	
 	print "#####################################################\n";
 	print "Check lncFunTK dependencies:\n\n";
+
+	my $env = `echo \$VIRTUAL_ENV`;
+	chomp($env);
+	
+	my $user_opt="";
+	if($env eq ""){
+		$user_opt="--user";
+	}
 	
 	# for perl
 	my $perl_version = $];
@@ -99,62 +107,128 @@ LOGO
 		$mlist{$m_name} = $m_version;
 	}
 	
-	if(exists $mlist{'matplotlib'}){
+	if(exists $mlist{'matplotlib'} && $mlist{'matplotlib'} eq "1.5.3"){
 		print "matplotlib==$mlist{'matplotlib'} is installed.\n";
 	}else{
-		print "matplotlib not exists. Please install matplotlib by pip.\n";
-		$result = 0;
+		print "Install matplotlib==1.5.3: start\n";
+		`pip install matplotlib==1.5.3 --ignore-installed $user_opt`;
+		print "Install matplotlib==1.5.3: finished\n\n";
+		#print "matplotlib not exists. Please install matplotlib by pip.\n";
+		#$result = 0;
 	}
 	
 	
-	if(exists $mlist{'networkx'}){
+	if(exists $mlist{'networkx'} && $mlist{'networkx'} eq "1.11"){
 		print "networkx==$mlist{'networkx'} is installed.\n";
 	}else{
-	        print "networkx not exists. Please install networkx by pip.\n";
-		$result = 0;
+		print "Install networkx==1.11: start\n";
+                `pip install networkx==1.11 $user_opt`;
+                print "Install networkx==1.11: finished\n\n";
+	        #print "networkx not exists. Please install networkx by pip.\n";
+		#$result = 0;
 	}
 	
 	
-	if(exists $mlist{'numpy'}){
+	if(exists $mlist{'numpy'} && $mlist{'numpy'} eq "1.11.2"){
 		print "numpy==$mlist{'numpy'} is installed.\n";
 	}else{
-	        print "numpy not exists. Please install numpy by pip.\n";
-		$result = 0;
+		print "Install numpy==1.11.2: start\n";
+                `pip install numpy==1.11.2 $user_opt`;
+                print "Install numpy==1.11.2: finished\n\n";
+	        #print "numpy not exists. Please install numpy by pip.\n";
+		#$result = 0;
 	}
 	
 	
 	
-	if(exists $mlist{'scikit-learn'}){
+	if(exists $mlist{'scikit-learn'} && $mlist{'scikit-learn'} eq "0.18"){
 		print "scikit-learn==$mlist{'scikit-learn'} is installed.\n";
 	}else{
-	        print "scikit-learn not exists. Please install scikit-learn by pip.\n";
-		$result = 0;
+                print "Install scikit-learn==0.18: start\n";
+                `pip install scikit-learn==0.18 $user_opt`;
+                print "Install scikit-learn==0.18: finished\n\n";
+	        #print "scikit-learn not exists. Please install scikit-learn by pip.\n";
+		#$result = 0;
 	}
 	
 	
-	if(exists $mlist{'scipy'}){
+	if(exists $mlist{'scipy'} && $mlist{'scipy'} eq "0.18.1"){
 		print "scipy==$mlist{'scipy'} is installed.\n";
 	}else{
-	        print "scipy not exists. Please install scipy by pip.\n";
-		$result = 0;
+		print "Install scipy==0.18.1: start\n";
+                `pip install scipy==0.18.1 $user_opt`;
+                print "Install scipy==0.18.1: finished\n\n";
+	        #print "scipy not exists. Please install scipy by pip.\n";
+		#$result = 0;
 	}
 	
 	
-	if(exists $mlist{'statsmodels'}){
+	if(exists $mlist{'statsmodels'} && $mlist{'statsmodels'} eq "0.6.1"){
 		print "statsmodels==$mlist{'statsmodels'} is installed.\n";
 	}else{
-	        print "statsmodels not exists. Please install statsmodels by pip.\n";
-		$result = 0;
+		print "Install statsmodels==0.6.1: start\n";
+                `pip install statsmodels==0.6.1 $user_opt`;
+                print "Install statsmodels==0.6.1: finished\n\n";
+	        #print "statsmodels not exists. Please install statsmodels by pip.\n";
+		#$result = 0;
 	}
 	print "\n";
 	
+
+	# check it again
+	print "Check it again\n";	
+	$mlist = `pip freeze`;
+	@mlist = split /\n/,$mlist;
+
+	%mlist = ();
+	foreach my $m (@mlist){
+		my ($m_name,$m_version) = split /==/,$m;
+		$mlist{$m_name} = $m_version;
+	}
+	
+	if(exists $mlist{'matplotlib'} && $mlist{'matplotlib'} eq "1.5.3"){
+		print "matplotlib==$mlist{'matplotlib'} is installed.\n";
+	}else{
+		$result = 0;
+	}
+	
+	
+	if(exists $mlist{'networkx'} && $mlist{'networkx'} eq "1.11"){
+		print "networkx==$mlist{'networkx'} is installed.\n";
+	}else{
+		$result = 0;
+	}
+	
+	
+	if(exists $mlist{'numpy'} && $mlist{'numpy'} eq "1.11.2"){
+		print "numpy==$mlist{'numpy'} is installed.\n";
+	}else{
+		$result = 0;
+	}
+	
+	if(exists $mlist{'scikit-learn'} && $mlist{'scikit-learn'} eq "0.18"){
+		print "scikit-learn==$mlist{'scikit-learn'} is installed.\n";
+	}else{
+		$result = 0;
+	}
+	
+	if(exists $mlist{'scipy'} && $mlist{'scipy'} eq "0.18.1"){
+		print "scipy==$mlist{'scipy'} is installed.\n";
+	}else{
+		$result = 0;
+	}
+	
+	if(exists $mlist{'statsmodels'} && $mlist{'statsmodels'} eq "0.6.1"){
+		print "statsmodels==$mlist{'statsmodels'} is installed.\n";
+	}else{
+		$result = 0;
+	}
+	print "\n";
+
 	if($result == 0){
-		print "Install or updating python packages: start\n";
-		`pip install -r  ./python.package.requirement.txt --user`;
-		print "Install or updating python packages: finished\n\n";
-		
-		print "You also can install require python packages at a time by the following command:\n";
-		print "pip install -r  ./python.package.requirement.txt --user\n\n";
+		print "Installation not completed. Please recheck the dependencies.\n";
+		#print "You also can install require python packages at a time by the following command:\n";
+		#print "pip install -r  ./python.package.requirement.txt --user\n\n";
 		print "For more detials, please refer to: https://github.com/zhoujj2013/lncfuntk\n\n";
 	}
 	
