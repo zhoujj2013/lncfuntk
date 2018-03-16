@@ -320,8 +320,8 @@ if(!$install && $db){
 		print "Update supporting dataset: done.\n\n";
 
 	}elsif(!(-d "./data/$db")){
-		`rm ./data/$db/$db.tar.gz` if(-f "./data/$db/$db.tar.gz");
-		`rm ./data/$db/$db.tar.gz.md5` if(-f "./data/$db/$db.tar.gz.md5");
+		`rm ./data/$db/$db.tar.gz` if(-f "./data/$db.tar.gz");
+		`rm ./data/$db/$db.tar.gz.md5` if(-f "./data/$db.tar.gz.md5");
 		print "Download supporting dataset for $db: start.\n";
 		print "Please have a cup of coffee, it will take some time.\n";
 		chdir "data/";
