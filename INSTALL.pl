@@ -168,13 +168,13 @@ LOGO
 	}
 	
 	
-	if(exists $mlist{'statsmodels'} && $mlist{'statsmodels'} eq "0.6.1"){
+	if(exists $mlist{'statsmodels'} && $mlist{'statsmodels'} eq "0.8.0"){
 		print "statsmodels==$mlist{'statsmodels'} is installed.\n";
 	}else{
-		print "Install statsmodels==0.6.1: start\n";
-		print "pip install statsmodels==0.6.1 $user_opt\n";
-                `pip install statsmodels==0.6.1 $user_opt`;
-                print "Install statsmodels==0.6.1: finished\n\n";
+		print "Install statsmodels==0.8.0: start\n";
+		print "pip install statsmodels==0.8.0 $user_opt\n";
+                `pip install statsmodels==0.8.0 $user_opt`;
+                print "Install statsmodels==0.8.0: finished\n\n";
 	        #print "statsmodels not exists. Please install statsmodels by pip.\n";
 		#$result = 0;
 	}
@@ -224,7 +224,7 @@ LOGO
 		$result = 0;
 	}
 	
-	if(exists $mlist{'statsmodels'} && $mlist{'statsmodels'} eq "0.6.1"){
+	if(exists $mlist{'statsmodels'} && $mlist{'statsmodels'} eq "0.8.0"){
 		print "statsmodels==$mlist{'statsmodels'} is installed.\n";
 	}else{
 		$result = 0;
