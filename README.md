@@ -27,7 +27,7 @@ unzip lncfuntk-master.zip
 
 ### Installation
 
-We recommend run lncFunTK under an isolated python environment, you should first make a python virtual environment by [virtualenv](https://virtualenv.pypa.io/en/stable/):
+We recommend run lncFunTK under an isolated python environment, you should first make a python virtual environment by [virtualenv](https://virtualenv.pypa.io/en/stable/) as follow:
 
 ```
 cd ./lncfuntk
