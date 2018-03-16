@@ -107,10 +107,11 @@ LOGO
 		$mlist{$m_name} = $m_version;
 	}
 	
-	if(exists $mlist{'matplotlib'} && $mlist{'matplotlib'} eq "1.5.3"){
+	if(exists $mlist{'matplotlib'}){
 		print "matplotlib==$mlist{'matplotlib'} is installed.\n";
 	}else{
 		print "Install matplotlib==1.5.3: start\n";
+		print "pip install matplotlib==1.5.3 --ignore-installed $user_opt\n";
 		`pip install matplotlib==1.5.3 --ignore-installed $user_opt`;
 		print "Install matplotlib==1.5.3: finished\n\n";
 		#print "matplotlib not exists. Please install matplotlib by pip.\n";
@@ -122,6 +123,7 @@ LOGO
 		print "networkx==$mlist{'networkx'} is installed.\n";
 	}else{
 		print "Install networkx==1.11: start\n";
+		print "pip install networkx==1.11 $user_opt\n";
                 `pip install networkx==1.11 $user_opt`;
                 print "Install networkx==1.11: finished\n\n";
 	        #print "networkx not exists. Please install networkx by pip.\n";
@@ -133,6 +135,7 @@ LOGO
 		print "numpy==$mlist{'numpy'} is installed.\n";
 	}else{
 		print "Install numpy==1.11.2: start\n";
+		print "pip install numpy==1.11.2 $user_opt\n";
                 `pip install numpy==1.11.2 $user_opt`;
                 print "Install numpy==1.11.2: finished\n\n";
 	        #print "numpy not exists. Please install numpy by pip.\n";
@@ -145,6 +148,7 @@ LOGO
 		print "scikit-learn==$mlist{'scikit-learn'} is installed.\n";
 	}else{
                 print "Install scikit-learn==0.18: start\n";
+		print "pip install scikit-learn==0.18 $user_opt\n";
                 `pip install scikit-learn==0.18 $user_opt`;
                 print "Install scikit-learn==0.18: finished\n\n";
 	        #print "scikit-learn not exists. Please install scikit-learn by pip.\n";
@@ -156,6 +160,7 @@ LOGO
 		print "scipy==$mlist{'scipy'} is installed.\n";
 	}else{
 		print "Install scipy==0.18.1: start\n";
+		print "pip install scipy==0.18.1 $user_opt\n";
                 `pip install scipy==0.18.1 $user_opt`;
                 print "Install scipy==0.18.1: finished\n\n";
 	        #print "scipy not exists. Please install scipy by pip.\n";
@@ -167,6 +172,7 @@ LOGO
 		print "statsmodels==$mlist{'statsmodels'} is installed.\n";
 	}else{
 		print "Install statsmodels==0.6.1: start\n";
+		print "pip install statsmodels==0.6.1 $user_opt\n";
                 `pip install statsmodels==0.6.1 $user_opt`;
                 print "Install statsmodels==0.6.1: finished\n\n";
 	        #print "statsmodels not exists. Please install statsmodels by pip.\n";
@@ -186,7 +192,7 @@ LOGO
 		$mlist{$m_name} = $m_version;
 	}
 	
-	if(exists $mlist{'matplotlib'} && $mlist{'matplotlib'} eq "1.5.3"){
+	if(exists $mlist{'matplotlib'}){
 		print "matplotlib==$mlist{'matplotlib'} is installed.\n";
 	}else{
 		$result = 0;
