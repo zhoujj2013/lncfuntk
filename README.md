@@ -7,7 +7,7 @@ lncFunTK is a toolkit that integrates ChIP-seq, CLIP-seq, and RNA-seq data to pr
 
 lncFunTK runs under the Linux (i.e., Centos, see also https://www.centos.org/ for further details) on a 64-bit machine with at least 10 GB RAM. For Windows and Mac OS users, we have implemented a user-friendly webserver with free access at http://sunlab.cpy.cuhk.edu.hk/lncfuntk/runlncfuntk.html.
 
-lncFunTK requires Python 2.7, PERL v5 and several python packages listed in [python.package.requirement.txt](https://github.com/zhoujj2013/lncfuntk/blob/master/python.package.requirement.txt).;
+lncFunTK requires Python 2.7, PERL v5, [pip](https://bootstrap.pypa.io/get-pip.py) and several python packages listed in [python.package.requirement.txt](https://github.com/zhoujj2013/lncfuntk/blob/master/python.package.requirement.txt).;
 
 We provide utility (INSTALL.pl) to install these packages automatically with a single command. If you want to install them manually, please download get-pip.py from https://bootstrap.pypa.io/get-pip.py and install pip module with [instructions](https://pip.pypa.io/en/stable/installing/).
 
@@ -22,7 +22,7 @@ git clone https://github.com/zhoujj2013/lncfuntk.git --depth 1
 
 ### Installation
 
-NOTE: you must install [pip](https://pip.pypa.io/en/stable/installing/) package before install lncFunTK.
+NOTE: Even though INSTALL.pl can install the required packages automatically, we still recommend you to prepare all required packages as described [here](https://github.com/zhoujj2013/lncfuntk/blob/master/prepare_packages.md) before install lncFunTK.
 
 To install lncFunTK, run command as follows:
 
