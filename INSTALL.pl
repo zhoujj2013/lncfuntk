@@ -123,8 +123,8 @@ LOGO
 		print "networkx==$mlist{'networkx'} is installed.\n";
 	}else{
 		print "Install networkx==1.11: start\n";
-		print "pip install networkx==1.11 $user_opt\n";
-                `pip install networkx==1.11 $user_opt`;
+		print "pip install networkx==1.11 --ignore-installed $user_opt\n";
+                `pip install networkx==1.11 --ignore-installed $user_opt`;
                 print "Install networkx==1.11: finished\n\n";
 	        #print "networkx not exists. Please install networkx by pip.\n";
 		#$result = 0;
@@ -135,8 +135,8 @@ LOGO
 		print "numpy==$mlist{'numpy'} is installed.\n";
 	}else{
 		print "Install numpy==1.11.2: start\n";
-		print "pip install numpy==1.11.2 $user_opt\n";
-                `pip install numpy==1.11.2 $user_opt`;
+		print "pip install numpy==1.11.2 --ignore-installed $user_opt\n";
+                `pip install numpy==1.11.2 --ignore-installed $user_opt`;
                 print "Install numpy==1.11.2: finished\n\n";
 	        #print "numpy not exists. Please install numpy by pip.\n";
 		#$result = 0;
@@ -148,8 +148,8 @@ LOGO
 		print "scikit-learn==$mlist{'scikit-learn'} is installed.\n";
 	}else{
                 print "Install scikit-learn==0.18: start\n";
-		print "pip install scikit-learn==0.18 $user_opt\n";
-                `pip install scikit-learn==0.18 $user_opt`;
+		print "pip install scikit-learn==0.18 --ignore-installed $user_opt\n";
+                `pip install scikit-learn==0.18 --ignore-installed $user_opt`;
                 print "Install scikit-learn==0.18: finished\n\n";
 	        #print "scikit-learn not exists. Please install scikit-learn by pip.\n";
 		#$result = 0;
@@ -160,8 +160,8 @@ LOGO
 		print "scipy==$mlist{'scipy'} is installed.\n";
 	}else{
 		print "Install scipy==0.18.1: start\n";
-		print "pip install scipy==0.18.1 $user_opt\n";
-                `pip install scipy==0.18.1 $user_opt`;
+		print "pip install scipy==0.18.1 --ignore-installed $user_opt\n";
+                `pip install scipy==0.18.1 --ignore-installed $user_opt`;
                 print "Install scipy==0.18.1: finished\n\n";
 	        #print "scipy not exists. Please install scipy by pip.\n";
 		#$result = 0;
@@ -172,8 +172,8 @@ LOGO
 		print "statsmodels==$mlist{'statsmodels'} is installed.\n";
 	}else{
 		print "Install statsmodels==0.8.0: start\n";
-		print "pip install statsmodels==0.8.0 $user_opt\n";
-                `pip install statsmodels==0.8.0 $user_opt`;
+		print "pip install statsmodels==0.8.0 --ignore-installed $user_opt\n";
+                `pip install statsmodels==0.8.0 --ignore-installed $user_opt`;
                 print "Install statsmodels==0.8.0: finished\n\n";
 	        #print "statsmodels not exists. Please install statsmodels by pip.\n";
 		#$result = 0;
