@@ -24,6 +24,21 @@ git clone https://github.com/zhoujj2013/lncfuntk.git --depth 1
 
 NOTE: Even though INSTALL.pl can install the required packages automatically, we still recommend you to prepare all required packages as described [here](https://github.com/zhoujj2013/lncfuntk/blob/master/prepare_packages.md) before install lncFunTK.
 
+We recommend run lncFunTK under an isolated python environment, you should first make a python virtual environment by [virtualenv](https://virtualenv.pypa.io/en/stable/):
+
+```
+cd ./lncfuntk
+
+# clean PYTHONPATH
+export PYTHONPATH=
+
+# Create an isolated python environment
+virtualenv --no-site-packages env
+
+# Activate the isolated python environment
+source env/bin/activate
+```
+
 To install lncFunTK, run command as follows:
 
 ```
@@ -32,7 +47,9 @@ perl INSTALL.pl --install
 # installation finished.
 ```
 
-The required packages will be automatically installed and supporting dataset for mm9 will be automatical downloaded by default. If you want to download supporting dataset in other genome version (mm10, hg19, hg38), you can run:
+The required packages will be automatically installed and supporting dataset for mm9 will be automatical downloaded by default. 
+
+If you want to download supporting dataset in other genome version (mm10, hg19, hg38), you can run:
 
 ```
 cd ./lncfuntk
