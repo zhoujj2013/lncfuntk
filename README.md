@@ -17,7 +17,7 @@ LncFunTK have been tested in CentOS release 6.2, Debian 7.0 3.2.60-1+deb7u3 and 
 
 ### Get lncFunTK
 ```
-git clone https://github.com/zhoujj2013/lncfuntk.git
+git clone https://github.com/zhoujj2013/lncfuntk.git --depth 1
 ```
 
 ### Installation
