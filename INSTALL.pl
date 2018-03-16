@@ -247,8 +247,8 @@ LOGO
 		print "Download supporting dataset for mouse(mm9): start.\n";
 		print "Please have a cup of coffee, it will take some time.\n";
 		chdir "data/";
-		`rm ./data/mm9.tar.gz` if(-f "./data/mm9.tar.gz");
-		`rm ./data/mm9.tar.gz.md5` if(-f "./data/mm9.tar.gz.md5");
+		`rm ./mm9.tar.gz` if(-f "./mm9.tar.gz");
+		`rm ./mm9.tar.gz.md5` if(-f "./mm9.tar.gz.md5");
 		`wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz && wget http://137.189.133.71/zhoujj/lncfuntk/mm9.tar.gz.md5 && touch mm9.dl.log`;
 		`tar xzf mm9.tar.gz`;
 		`rm mm9.dl.log mm9.tar.gz`;
