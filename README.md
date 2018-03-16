@@ -22,6 +22,7 @@ git clone https://github.com/zhoujj2013/lncfuntk.git --depth 1
 
 ### Installation
 
+NOTE: you must install [pip](https://pip.pypa.io/en/stable/installing/) package before install lncFunTK.
 To install lncFunTK, run command as follows:
 
 ```
