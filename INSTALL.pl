@@ -90,7 +90,7 @@ LOGO
 	
 	# for python pakages
 	print "\n";
-	my $mlist = `python -m pip freeze`;
+	my $mlist = `pip freeze`;
 	my @mlist = split /\n/,$mlist;
 	
 	my %mlist;
@@ -149,6 +149,10 @@ LOGO
 	print "\n";
 	
 	if($result == 0){
+		print "Install or updating python packages: start\n";
+		`pip install -r  ./python.package.requirement.txt --user`;
+		print "Install or updating python packages: finished\n\n";
+		
 		print "You also can install require python packages at a time by the following command:\n";
 		print "pip install -r  ./python.package.requirement.txt --user\n\n";
 		print "For more detials, please refer to: https://github.com/zhoujj2013/lncfuntk\n\n";
