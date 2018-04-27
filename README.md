@@ -108,4 +108,6 @@ LR.result file contains the optimal weight values for FIS calculation. You can u
 
 ## Please cite
 
-1. Zhou J, Zhang S, Wang H, et al. LncFunNet: an integrated computational framework for identification of functional long noncoding RNAs in mouse skeletal muscle cells[J]. Nucleic Acids Research, 2017. PMID: [28379566](https://www.ncbi.nlm.nih.gov/pubmed/28379566).
+1. Jiajian Zhou, et al. "lncFunTK: A toolkit for functional annotation of long noncoding RNAs." Bioinformatics bty339 (2018): https://doi.org/10.1093/bioinformatics/bty339
+
+2. Zhou, Jiajian, et al. "LncFunNet: an integrated computational framework for identification of functional long noncoding RNAs in mouse skeletal muscle cells." Nucleic acids research 45.12 (2017): e108-e108.
